@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','IndexController@index');
+Route::get('detail/{id}','IndexController@detail');
+Route::get('cartoon/{id}/{list_id}','IndexController@cartoon');
