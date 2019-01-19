@@ -1,40 +1,17 @@
 <html>
 <head>
-    <meta charset="utf-8">
+
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>第1话 获取能力</title>
-    <link href="http://m8.hongjingkeji.com/Public/novel/css/mui.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://m8.hongjingkeji.com/Public/novel/css/reset.css?20180912">
-    <link rel="stylesheet" href="http://m8.hongjingkeji.com/Public/novel/css/swiper-3.4.2.min.css">
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_809906_xsowanr9ms8.css">
-    <link rel="stylesheet" href="http://m8.hongjingkeji.com/Public/novel/css/novel.css">
+    @include('common.header')
+    <title>第{{$cartoon->page}}话 {{$cartoon->name}}</title>
     <style>
-        html,body,{ max-width:600px; margin:0 auto;}
+        html,body{ max-width:600px; margin:0 auto;}
         .mui-bar-tab .mui-tab-item.mui-active{ color:#3688ff}
     </style>
-    <script charset="utf-8" src="https://tag.baidu.com/vcard/v.js?siteid=12911204&amp;url=http%3A%2F%2Fm8.hongjingkeji.com%2Findex.php%3Fm%3D%26c%3DCommic%26a%3Dread%26commic_id%3D1%26chapter_id%3D&amp;source=http%3A%2F%2Fm8.hongjingkeji.com%2Fiframe.php%3Furl%3Dhttp%253A%252F%252Fm8.hongjingkeji.com%252F&amp;rnd=962208701&amp;hm=1"></script><script src="https://hm.baidu.com/hm.js?8b510fc5904051edbfe74a023790a160"></script><script src="https://hm.baidu.com/hm.js?e1e19bacf8cfcbccb2235c1aa2bd9046"></script><script src="https://hm.baidu.com/hm.js?e1e19bacf8cfcbccb2235c1aa2bd9046"></script><script>
-        var _ua = window.navigator.userAgent.toLowerCase();
-        var isMobile = _ua.indexOf('mobile') < 0 ? false : true;
-        if(!isMobile && top == self){
-            location.href = "/iframe.php?url=" + encodeURIComponent(location.href);
-        }else if(isMobile && top != self){
-            top.location.href = location.href;
-        }
-    </script>
-    <!--统计代码-->
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?e1e19bacf8cfcbccb2235c1aa2bd9046";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
 
     <style>
         h5{
@@ -62,9 +39,7 @@
         .box_read p{ text-indent:0;}
         #content img{ max-width:100%; display:block;}
     </style>
-    <meta name="poweredby" content="dragondean">
 
-    <link rel="stylesheet" href="http://m8.hongjingkeji.com/Public/plugins/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer">
 </head>
 <body class="mui-ios mui-ios-11 mui-ios-11-0" style="">
 <div></div>
@@ -76,33 +51,32 @@
         <img src="http://m8.hongjingkeji.com/Public/novel/img/night.png">
     </figure>
     <p id="content" style=" font-size:18px">
-        @foreach($cartoons->url as $cartoon)
-        <img src="{{$cartoon}}">
+        @foreach($cartoon->url as $url)
+        <img src="{{$url}}">
             @endforeach
       </p>
     <div class="flex">
         <div>
-            <a href="javascript:;" class="before">上一章</a>
+
+            <a href=" @if($cartoon->page > 1)/cartoon/{{$cartoon->cartoon_id}}/{{$cartoon->page-1}}  @endif" class="before">上一章</a>
+
         </div>
         <div>
-            <a href="javascript:;" class="after">下一章</a>
+            <a href="/cartoon/{{$cartoon->cartoon_id}}/{{$cartoon->page+1}}" class="after">下一章</a>
         </div>
     </div>
 </div>
 <div class="read_btmnav" style="height: 50px">
-    <div class="read_btmnav_top">
 
-        <a href="javascript:;" class="before">上一章</a>
-        <a href="javascript:;" class="after">下一章</a>
-    </div>
-    <div class="ziti_posi">
-        <div class="mui-numbox" data-numbox-min="10" data-numbox-max="30">
-            <button class="mui-btn mui-btn-numbox-minus" type="button">A-</button>
-            <input id="test" class="mui-input-numbox" type="number" value="15">
-            <button class="mui-btn mui-btn-numbox-plus" type="button">A+</button>
-        </div>
-    </div>
+
     <ul class="read_btmnav_btm">
+        <li>
+            <a href="@if($cartoon->page > 1)/cartoon/{{$cartoon->cartoon_id}}/{{$cartoon->page-1}} @endif">
+                <span class="iconfont icon-mulu"></span>
+                <span>上一章</span>
+            </a>
+        </li>
+
         <li>
             <a href="/index.php?m=&amp;c=Commic&amp;a=chapter&amp;commic_id=1&amp;chapter_id=10882">
                 <span class="iconfont icon-mulu"></span>
@@ -120,6 +94,12 @@
                 <span>评论</span>
             </a>
         </li>
+        <li>
+            <a href="/cartoon/{{$cartoon->cartoon_id}}/{{$cartoon->page+1}}">
+                <span class="iconfont icon-mulu"></span>
+                <span>下一章</span>
+            </a>
+        </li>
     </ul>
 
     <style>
@@ -127,6 +107,11 @@
         .float-btn a{background: rgba(0,0,0,.5); padding: 10px;color: #fff; border-bottom:1px solid #ccc; display:block;}
     </style>
     <div class="float-btn">
+<a>
+
+            <div>第{{$cartoon->page}}章</div>
+    <div>{{$cartoon->name}}</div>
+        </a>
         <a href="/">
             <div>
                 <span class="mui-icon mui-icon-home"></span>
@@ -139,6 +124,7 @@
             </div>
             <div>举报</div>
         </a>
+
     </div>
 </div>
 
@@ -181,12 +167,8 @@
             <div class="buyway-desc">看多少买多少，后续自动购买</div>
         </div>		</div>
 </div>
-<script src="http://m8.hongjingkeji.com/Public/novel/js/mui.min.js"></script>
-<script src="http://m8.hongjingkeji.com/Public/novel/js/jquery-3.3.1.min.js"></script>
-<script src="http://m8.hongjingkeji.com/Public/plugins/layer/layer.js"></script>
+@include('common.js')
 <script type="text/javascript">
-
-
     //点击文本内容  隐藏上下属性栏
     var toolBarVisiable = true;
     $('.box_read p').click(function(){

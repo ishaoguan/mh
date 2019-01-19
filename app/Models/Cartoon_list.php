@@ -15,4 +15,8 @@ class Cartoon_list extends Model
       $url =  explode(',',trim($key))? : [trim($key)];
       return $url;
     }
+
+
+
+
 }

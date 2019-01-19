@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use App\Models\Cartoon;
 use App\Models\Cartoon_list;
+use App\Models\Cate;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -48,13 +49,53 @@ class IndexController extends Controller
     }
 
 
+    /**漫画详情页面
+     * @param $id
+     * @param $list_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     */
     public function cartoon($id,$list_id)
     {
-        $cartoons =  Cartoon_list::where('cartoon_id',$id)->where('page',$list_id)->first();
+        if(!$cartoon_list =  Cartoon_list::where('cartoon_id',$id)->where('page',$list_id)->first()){
+            return 'error ! 未找到此页面';
+        }
+
         return view('cartoon',[
-            'cartoons'=>$cartoons,
+            'cartoon'=>$cartoon_list,
         ]);
     }
 
+
+
+    public function cartoon_list($id)
+    {
+        if(!$cartoon_list =  Cartoon_list::where('cartoon_id',$id)->get()){
+            return 'error ! 未找到此页面';
+        }
+        $status = Cartoon::find($id)->end==1?'已完结':'连载中';
+        return view('list',[
+            'cartoons'=>$cartoon_list,
+            'status'=>$status,
+            'id'=>$id,
+        ]);
+
+    }
+
+
+    public function cate(Request $request)
+    {
+
+        $cates = Cate::select(['id','name'])->get();
+        $cartoons = Cartoon::select(['name','thumb','detail','introduce','hit']);
+        if($request->cate_id){
+            $cartoons =  $cartoons->where('cate_id',$request->cate_id);
+        }
+        $cartoons = $cartoons->get();
+
+        return view('cate',[
+            'cates'=>$cates,
+            'cartoons'=>$cartoons,
+        ]);
+    }
 
 }
