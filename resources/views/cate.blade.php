@@ -16,7 +16,7 @@
     <div class="cftion_top">
         <div>类型</div>
         <div>
-            <select name="sex_type" default="" onchange="filter(this)">
+            <select style="margin-top:10px" name="sex_type" default="" onchange="filter(this)">
                 <option value="" selected="selected">频道</option>
                 <option value="">全部</option>
                 <option value="1">男生</option>
@@ -24,7 +24,7 @@
             </select>
         </div>
         <div>
-            <select name="is_finished" default="" onchange="filter(this)">
+            <select style="margin-top:10px" name="is_finished" default="" onchange="filter(this)">
                 <option value="" selected="selected">状态</option>
                 <option value="">全部</option>
                 <option value="1">连载</option>
@@ -32,7 +32,7 @@
             </select>
         </div>
         <div>
-            <select name="is_free" default="" onchange="filter(this)">
+            <select style="margin-top:10px" name="is_free" default="" onchange="filter(this)">
                 <option value="" selected="selected">属性</option>
                 <option value="">全部</option>
                 <option value="1">付费</option>
@@ -59,9 +59,9 @@
     <div class="cftion_content">
         <div class="tab_menu">
             <ul>
-                <li><a class="selected" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;">全部</a></li>
+                <li><a class="@if(!isset($_REQUEST['cate_id']))selected @endif" href="/cate">全部</a></li>
                 @foreach($cates as $cate)
-                    <li><a class="" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;tag_id=17">{{$cate->name}}</a></li>
+                    <li><a class="@if(isset($_REQUEST['cate_id']) && $_REQUEST['cate_id'] == $cate->id)selected @endif" href="/cate?cate_id={{$cate->id}}">{{$cate->name}}</a></li>
                     @endforeach
             </ul>
         </div>
@@ -87,15 +87,8 @@
                     @endforeach
                 </ul>
             </div>
-            <style>
-                .tag{ border:1px solid #808080; padding:3px 5px; color:#808080; font-size:10px; line-height:10px;}
-                .pages ul:after{ content:''; display:block; clear:both;}
-                .pages ul li{ float:left; border: 1px solid #eee; padding:3px 10px; margin-right:10px; margin-bottom:10px;}
-                .pages ul li.disabled{ display:none;}
-                .pages ul li.active a{ color:#aaa;}
-            </style>
-            <div class="pages" style="display: none;">
-                <ul class="pagination"><li class="disabled"><a href="javascript:;">共 415 条记录</a></li>   <li class="active"><a href="javascript:;">1</a></li><li><a class="num" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=2">2</a></li><li><a class="num" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=3">3</a></li><li><a class="num" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=4">4</a></li><li><a class="num" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=5">5</a></li><li><a class="num" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=6">6</a></li><li><a class="num" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=7">7</a></li><li><a class="num" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=8">8</a></li><li><a class="num" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=9">9</a></li><li><a class="num" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=10">10</a></li><li><a class="num" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=11">11</a></li> <li><a class="next" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=2">下一页</a></li> <li><a class="end" href="/index.php?m=&amp;c=commic&amp;a=cates&amp;p=21">21</a></li></ul>				</div>
+
+
         </div>
     </div>
 </div>

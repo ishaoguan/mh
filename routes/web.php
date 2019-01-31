@@ -22,7 +22,12 @@ Route::get('cate','IndexController@cate');
 /**
  * my我的
  */
-Route::get('my','MyController@my');
+Route::get('my','UserController@my');
+Route::get('recharge','UserController@recharge');
+Route::get('password','UserController@password');
+Route::post('changePassword','UserController@changePassword');
+
+
 
 
 
@@ -34,4 +39,7 @@ Route::get('login','LoginController@login');
 Route::get('reg','LoginController@reg');
 Route::post('doLogin','LoginController@doLogin');
 Route::post('doReg','LoginController@doReg');
+
+
+
 

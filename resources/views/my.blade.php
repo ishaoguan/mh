@@ -15,33 +15,14 @@
     <style>
         html,body,{ max-width:600px; margin:0 auto;}
     </style>
-    <script charset="utf-8" src="https://tag.baidu.com/vcard/v.js?siteid=12911204&amp;url=http%3A%2F%2Fm8.hongjingkeji.com%2Findex.php%3Fm%3D%26c%3DMy%26a%3Dindex&amp;source=http%3A%2F%2Fm8.hongjingkeji.com%2Fiframe.php%3Furl%3Dhttp%253A%252F%252Fm8.hongjingkeji.com%252F&amp;rnd=1510478696&amp;hm=1"></script><script src="https://hm.baidu.com/hm.js?8b510fc5904051edbfe74a023790a160"></script><script src="https://hm.baidu.com/hm.js?e1e19bacf8cfcbccb2235c1aa2bd9046"></script><script src="https://hm.baidu.com/hm.js?e1e19bacf8cfcbccb2235c1aa2bd9046"></script><script>
-        var _ua = window.navigator.userAgent.toLowerCase();
-        var isMobile = _ua.indexOf('mobile') < 0 ? false : true;
-        if(!isMobile && top == self){
-            location.href = "/iframe.php?url=" + encodeURIComponent(location.href);
-        }else if(isMobile && top != self){
-            top.location.href = location.href;
-        }
-    </script>
-    <!--统计代码-->
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?e1e19bacf8cfcbccb2235c1aa2bd9046";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
+
 
     <style>
         .mine_top_content img{ border-radius:50%;}
         .mine_top_btm div{ -webkit-flex:1}
     </style>
-    <meta name="poweredby" content="dragondean">
 
-    <link rel="stylesheet" href="http://m8.hongjingkeji.com/Public/plugins/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer"></head>
+</head>
 <body style="background-color: #F4F4F4;">
 <div class="box_mine" style="">
     <div class="mine_top">
@@ -52,7 +33,7 @@
                     900b0												</p>
                 <p style=" margin-top:0;">
                     ID:<span>2468</span>
-                    密码<!--?php echo (764271); ?-->														<span class="mui-badge mui-badge-purple">未开通VIP</span>						</p>
+                    <span class="mui-badge mui-badge-purple">未开通VIP</span>						</p>
             </div>
             <a href="javascript:;" class="last"><i class="iconfont icon-yiqiandao"></i><span>签到</span></a>
         </div>
@@ -64,7 +45,7 @@
                 </a>
             </div>
             <div>
-                <p>书币</p>
+                <p>会员到期时间</p>
                 <span>0.00</span>
             </div>
         </div>
@@ -74,39 +55,39 @@
             <figure>
                 <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_top-up.png">
             </figure>
-            <a href="/index.php?m=&amp;c=My&amp;a=charge">
+            <a href="/recharge">
                 <span>立即充值</span>
                 <span class="iconfont icon-xiangyoujiantou"></span>
             </a>
         </li>
-        <li>
-            <figure>
-                <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_gift.png">
-            </figure>
-            <a href="/index.php?m=&amp;c=My&amp;a=invite">
-                <span>邀请有礼</span>
-                <span class="iconfont icon-xiangyoujiantou"></span>
-            </a>
-        </li>
+        {{--<li>--}}
+            {{--<figure>--}}
+                {{--<img src="http://m8.hongjingkeji.com/Public/novel/img/mine_gift.png">--}}
+            {{--</figure>--}}
+            {{--<a href="/index.php?m=&amp;c=My&amp;a=invite">--}}
+                {{--<span>邀请有礼</span>--}}
+                {{--<span class="iconfont icon-xiangyoujiantou"></span>--}}
+            {{--</a>--}}
+        {{--</li>--}}
 
-        <li>
-            <figure>
-                <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_people_logo.png">
-            </figure>
-            <a href="/index.php?m=&amp;c=My&amp;a=friends">
-                <span>我的好友</span>
-                <span class="iconfont icon-xiangyoujiantou"></span>
-            </a>
-        </li>
-        <li>
-            <figure>
-                <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_gift_box.png">
-            </figure>
-            <a href="/index.php?m=&amp;c=My&amp;a=expense">
-                <span>好友贡献</span>
-                <span class="iconfont icon-xiangyoujiantou"></span>
-            </a>
-        </li>
+        {{--<li>--}}
+            {{--<figure>--}}
+                {{--<img src="http://m8.hongjingkeji.com/Public/novel/img/mine_people_logo.png">--}}
+            {{--</figure>--}}
+            {{--<a href="/index.php?m=&amp;c=My&amp;a=friends">--}}
+                {{--<span>我的好友</span>--}}
+                {{--<span class="iconfont icon-xiangyoujiantou"></span>--}}
+            {{--</a>--}}
+        {{--</li>--}}
+        {{--<li>--}}
+            {{--<figure>--}}
+                {{--<img src="http://m8.hongjingkeji.com/Public/novel/img/mine_gift_box.png">--}}
+            {{--</figure>--}}
+            {{--<a href="/index.php?m=&amp;c=My&amp;a=expense">--}}
+                {{--<span>好友贡献</span>--}}
+                {{--<span class="iconfont icon-xiangyoujiantou"></span>--}}
+            {{--</a>--}}
+        {{--</li>--}}
     </ul>
     <ul class="mine_content mine_content_size">
         <li>
@@ -118,28 +99,29 @@
                 <span class="iconfont icon-xiangyoujiantou"></span>
             </a>
         </li>
-        <li>
-            <figure>
-                <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_gift.png">
-            </figure>
-            <a href="/index.php?m=&amp;c=My&amp;a=withdraw">
-                <span>申请提现</span>
-                <span class="iconfont icon-xiangyoujiantou"></span>
-            </a>
-        </li>
-        <li>
-            <figure>
-                <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_mobile.png">
-            </figure>
-            <a href="/index.php?m=&amp;c=My&amp;a=bind">
-                <span>绑定手机</span>
-                <span class="iconfont icon-xiangyoujiantou"></span>
-            </a>				</li>
+        {{--<li>--}}
+            {{--<figure>--}}
+                {{--<img src="http://m8.hongjingkeji.com/Public/novel/img/mine_gift.png">--}}
+            {{--</figure>--}}
+            {{--<a href="/index.php?m=&amp;c=My&amp;a=withdraw">--}}
+                {{--<span>申请提现</span>--}}
+                {{--<span class="iconfont icon-xiangyoujiantou"></span>--}}
+            {{--</a>--}}
+        {{--</li>--}}
+      {{----}}
+        {{--<li>--}}
+            {{--<figure>--}}
+                {{--<img src="http://m8.hongjingkeji.com/Public/novel/img/mine_mobile.png">--}}
+            {{--</figure>--}}
+            {{--<a href="/index.php?m=&amp;c=My&amp;a=bind">--}}
+                {{--<span>绑定手机</span>--}}
+                {{--<span class="iconfont icon-xiangyoujiantou"></span>--}}
+            {{--</a>				</li>--}}
         <li>
             <figure>
                 <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_pass.png">
             </figure>
-            <a href="/index.php?m=&amp;c=Public&amp;a=setpass">
+            <a href="/password">
                 <span>修改密码</span>
                 <span class="iconfont icon-xiangyoujiantou"></span>
             </a>
@@ -147,48 +129,10 @@
     </ul>
     <div style="height: 49px;"></div>
     <!-- 底部nav -->
-    <nav class="mui-bar mui-bar-tab">
-        <a href="http://at.alicdn.com/index.php?m=&amp;c=My&amp;a=history" class="mui-tab-item ">
-            <div>
-                <img class="posi_img" src="http://m8.hongjingkeji.com/Public/anime/img/nav_bookcase_red.png">
-                <img src="http://m8.hongjingkeji.com/Public/anime/img/nav_bookcase_gray.png">
-            </div>
-            <span class="mui-tab-label">书架</span>
-        </a>
-        <a href="/" class="mui-tab-item mui-active">
-            <div>
-                <img class="posi_img" src="http://m8.hongjingkeji.com/Public/anime/img/nav_bookcity_red.png">
-                <img src="http://m8.hongjingkeji.com/Public/anime/img/nav_bookcity_gray.png.png">
-            </div>
-            <span class="mui-tab-label">书城</span>
-        </a>
-        <a href="/cate" class="mui-tab-item ">
-            <div>
-                <img class="posi_img" src="http://m8.hongjingkeji.com/Public/anime/img/nav_classify_red.png">
-                <img src="http://m8.hongjingkeji.com/Public/anime/img/nav_classify_gray.png">
-            </div>
-            <span class="mui-tab-label">分类</span>
-        </a>
-        <a href="/my" class="mui-tab-item ">
-            <div>
-                <img class="posi_img" src="http://m8.hongjingkeji.com/Public/anime/img/nav_mine_red.png">
-                <img src="http://m8.hongjingkeji.com/Public/anime/img/nav_mine_gray.png">
-            </div>
-            <span class="mui-tab-label">我的</span>
-        </a>
-    </nav>
-    <!--统计代码-->
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?e1e19bacf8cfcbccb2235c1aa2bd9046";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
+   @include('common.footer')
+
 </div>
-<script src="{{asset('start.js')}}"></script>
+<script src="{{asset('/js/start.js')}}"></script>
 @include('common.js')
 <script type="text/javascript">
     //监听a标签 跳转页面事件

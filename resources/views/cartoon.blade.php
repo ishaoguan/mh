@@ -51,7 +51,7 @@
         <img src="http://m8.hongjingkeji.com/Public/novel/img/night.png">
     </figure>
     <p id="content" style=" font-size:18px">
-        @foreach($cartoon->url as $url)
+        @foreach(explode(PHP_EOL,trim($cartoon->url))? : [trim($cartoon->url)] as $url)
         <img src="{{$url}}">
             @endforeach
       </p>
@@ -376,25 +376,9 @@
         loadContent();
     });
     loadContent();
-</script><div class="layui-layer-move"></div>
-<script>
-    window.shareData = {
-        title:"超级吸引力",
-        desc:"平常不受欢迎的家伙因为一场事故，拥有了一种“超级吸引力”，从此人生发生翻天覆地的改变！",
-        link:"http://w.hongjingkeji.com/index.php?m=&c=Commic&a=detail&id=1",
-        img:'http://manhua-1251281796.cos.ap-chengdu.myqcloud.com/mhfm/b2jugu4byes1513.jpg'
-    };
 </script>
-<!--统计代码-->
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?e1e19bacf8cfcbccb2235c1aa2bd9046";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>	<script src="//stat.loxn.cn/stat.js?fr=novel"></script>
+<div class="layui-layer-move"></div>
+
 
 
 </body>

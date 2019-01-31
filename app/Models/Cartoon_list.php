@@ -9,11 +9,17 @@ class Cartoon_list extends Model
 
     public $timestamps=false;
     public $table='cartoon_list';
-    public function getUrlAttribute($key)
-    {
+//    public function getUrlAttribute($key)
+//    {
+//
+//      $url =  explode(',',trim($key))? : [trim($key)];
+//      return $url;
+//    }
 
-      $url =  explode(',',trim($key))? : [trim($key)];
-      return $url;
+
+    public function cartoon()
+    {
+        return $this->hasOne(Cartoon::class,'id','cartoon_id');
     }
 
 

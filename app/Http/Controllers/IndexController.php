@@ -21,6 +21,7 @@ class IndexController extends Controller
         $cartoons = Cartoon::get();
 
         return view('index',[
+            'type'=>1,
             'banners'=>$banners,
             'cartoons'=>$cartoons,
             'cartoons_f'=>$cartoons_f,
@@ -93,6 +94,7 @@ class IndexController extends Controller
         $cartoons = $cartoons->get();
 
         return view('cate',[
+            'type'=>2,
             'cates'=>$cates,
             'cartoons'=>$cartoons,
         ]);

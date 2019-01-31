@@ -37,7 +37,7 @@
                 <div class="headline">
                     <h3 class="p_over">{{$cartoon->name}}</h3>
                     <p class="activeBoth p_over">
-                        <span class="txt">{{$cartoon->end}}</span>
+                        <span class="txt">@if($cartoon->end ==1)已完结@else连载中@endif</span>
                     </p>
                 </div>
             </div>
@@ -125,65 +125,65 @@
                 <span>打赏书籍</span>
             </div-->
         </div>
-        <div class="exceptional_mask">
-            <div class="content">
-                <img class="bg_img" src="/Public/anime/img/exceptional_mask_bg.png">
-                <span class="iconfont icon-cha poor"></span>
-                <ul class="mask_list">
-                    <li class="active">
-                        <div>
-                            <img src="/Public/anime/img/mask_list_img.png" alt="">
-                            <p class="num_mask">1</p>
-                        </div>
-                        <h3 class="name">面具</h3>
-                        <p class="money">366金币</p>
-                    </li>
-                    <li>
-                        <div>
-                            <img src="/Public/anime/img/mask_list_img.png" alt="">
-                        </div>
-                        <h3 class="name">面具</h3>
-                        <p class="money">366金币</p>
-                    </li>
-                    <li>
-                        <div>
-                            <img src="/Public/anime/img/mask_list_img.png" alt="">
-                        </div>
-                        <h3 class="name">面具</h3>
-                        <p class="money">366金币</p>
-                    </li>
-                    <li>
-                        <div>
-                            <img src="/Public/anime/img/mask_list_img.png" alt="">
-                        </div>
-                        <h3 class="name">面具</h3>
-                        <p class="money">366金币</p>
-                    </li>
-                    <li>
-                        <div>
-                            <img src="/Public/anime/img/mask_list_img.png" alt="">
-                        </div>
-                        <h3 class="name">面具</h3>
-                        <p class="money">366金币</p>
-                    </li>
-                </ul>
-                <div class="number">
-                    <p class="balance">余额：0</p>
-                    <div class="calculate">
-                        <span class="iconfont icon-minusj"></span>
-                        <span class="num">1</span>
-                        <span class="iconfont icon-jia"></span>
-                    </div>
-                </div>
-                <button class="btn">余额不足，请充值</button>
-            </div>
-        </div>
+        {{--<div class="exceptional_mask">--}}
+            {{--<div class="content">--}}
+                {{--<img class="bg_img" src="/Public/anime/img/exceptional_mask_bg.png">--}}
+                {{--<span class="iconfont icon-cha poor"></span>--}}
+                {{--<ul class="mask_list">--}}
+                    {{--<li class="active">--}}
+                        {{--<div>--}}
+                            {{--<img src="/Public/anime/img/mask_list_img.png" alt="">--}}
+                            {{--<p class="num_mask">1</p>--}}
+                        {{--</div>--}}
+                        {{--<h3 class="name">面具</h3>--}}
+                        {{--<p class="money">366金币</p>--}}
+                    {{--</li>--}}
+                    {{--<li>--}}
+                        {{--<div>--}}
+                            {{--<img src="/Public/anime/img/mask_list_img.png" alt="">--}}
+                        {{--</div>--}}
+                        {{--<h3 class="name">面具</h3>--}}
+                        {{--<p class="money">366金币</p>--}}
+                    {{--</li>--}}
+                    {{--<li>--}}
+                        {{--<div>--}}
+                            {{--<img src="/Public/anime/img/mask_list_img.png" alt="">--}}
+                        {{--</div>--}}
+                        {{--<h3 class="name">面具</h3>--}}
+                        {{--<p class="money">366金币</p>--}}
+                    {{--</li>--}}
+                    {{--<li>--}}
+                        {{--<div>--}}
+                            {{--<img src="/Public/anime/img/mask_list_img.png" alt="">--}}
+                        {{--</div>--}}
+                        {{--<h3 class="name">面具</h3>--}}
+                        {{--<p class="money">366金币</p>--}}
+                    {{--</li>--}}
+                    {{--<li>--}}
+                        {{--<div>--}}
+                            {{--<img src="/Public/anime/img/mask_list_img.png" alt="">--}}
+                        {{--</div>--}}
+                        {{--<h3 class="name">面具</h3>--}}
+                        {{--<p class="money">366金币</p>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+                {{--<div class="number">--}}
+                    {{--<p class="balance">余额：0</p>--}}
+                    {{--<div class="calculate">--}}
+                        {{--<span class="iconfont icon-minusj"></span>--}}
+                        {{--<span class="num">1</span>--}}
+                        {{--<span class="iconfont icon-jia"></span>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<button class="btn">余额不足，请充值</button>--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </div>
-    <script src="https://hm.baidu.com/hm.js?8b510fc5904051edbfe74a023790a160"></script><script src="//stat.loxn.cn/stat.js?fr=novel"></script>
 
 
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{asset('js/mui.min.js')}}"></script>
-    <script src="/Public/anime/js/jquery-3.3.1.min.js"></script>
+
     <script type="text/javascript">
         //点击收藏/取消收藏
         $('#fav').click(function(){

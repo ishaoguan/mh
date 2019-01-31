@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="{{asset('/css/swiper-3.4.2.min.css')}}">
     <link rel="stylesheet" href="{{asset('/css/anime.css')}}">
     <style>
+        .index_product{
+            background-color: transparent;
+        }
         .search{ display:block; width:30px; line-height:30px; text-align:center; background:rgba(0,0,0,.5); border-radius:50%;
             position:absolute; top:10px; right:10px; color:#fff; z-index:10;
         }
@@ -20,7 +23,7 @@
     <meta name="poweredby" content="dragondean">
     <title>Title</title>
 </head>
-<body style="background:#fff">
+<body style="background:transparent">
 
 <a href="/index.php?m=&amp;c=Commic&amp;a=search_form" href2="javascript:$('.search-form').show();$('.search').hide();;" class="search"><span class="iconfont icon-sousuo"></span></a>
 <div class="search-form">
