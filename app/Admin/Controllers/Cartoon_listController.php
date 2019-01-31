@@ -135,8 +135,14 @@ class Cartoon_listController extends Controller
         $form->number('cartoon_id', 'Cartoon id')->default(session('cartoon_id'));
         $form->text('name', 'Name');
         $form->textarea('url', 'Url');
-        $form->number('page', 'Page')->default($cartoon_list->page+1);
-        $form->number('pay', 'Pay')->default($cartoon_list->pay);
+        if(session()->has('cartoon_id')){
+            $form->number('page', 'Page')->default($cartoon_list->page+1);
+            $form->number('pay', 'Pay')->default($cartoon_list->pay);
+        }else{
+            $form->number('page', 'Page');
+            $form->number('pay', 'Pay');
+        }
+
 
         return $form;
     }
