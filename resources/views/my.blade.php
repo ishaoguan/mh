@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{asset('css/reset.css')}}">
     <link rel="stylesheet" href="{{asset('css/swiper-3.4.2.min.css')}}">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_809906_xsowanr9ms8.css">
-    <link rel="stylesheet" href="{{asset('css/novel.css')}}/">
+    <link rel="stylesheet" href="{{asset('css/novel.css')}}">
     <link rel="stylesheet" href="{{asset('/css/anime.css')}}">
     <style>
         html,body,{ max-width:600px; margin:0 auto;}
