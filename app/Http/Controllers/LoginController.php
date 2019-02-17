@@ -88,20 +88,28 @@ class LoginController extends Controller
         }
     }
 
+    /**注销登陆
+     * @return bool
+     */
     public function logOut()
     {
 
         session()->forget('user_id');
 
         if(session()->has('user_id')){
-            return true;
+            return $this->error('注销失败');
+
         }
-        return false;
+        return $this->success('注销成功',['url'=>'/']);
 
     }
 
 
-
+    /**获取iP
+     * @param int $type
+     * @param bool $client
+     * @return mixed
+     */
     public function getIp($type = 0,$client=true)
     {
 

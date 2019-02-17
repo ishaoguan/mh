@@ -14,15 +14,8 @@
     </style>
 
     <style>
-        h5{
-            padding-top: 5px;
-        }
-
-        .field-contain label{
-            width: auto;
-            padding-right: 0;
-        }
-
+        h5{  padding-top: 5px;  }
+        .field-contain label{  width: auto;  padding-right: 0;  }
         .field-contain input[type='text']{
             width: 40px;
             height: 30px;
@@ -30,11 +23,9 @@
             float: none;
             text-align: center;
         }
-
         .flex{ display:flex; display:-webkit-flex;}
         .flex>div{ flex:1; -webkit-flex:1; text-align:center; padding:30px 0;}
         .flex div a{ border:1px solid #aaa; border-radius:5px; padding:10px 20px; color:#aaa;}
-
         .box_read{ padding:0;}
         .box_read p{ text-indent:0;}
         #content img{ max-width:100%; display:block;}
@@ -43,13 +34,9 @@
 </head>
 <body class="mui-ios mui-ios-11 mui-ios-11-0" style="">
 <div></div>
+
 <div class="box_read" style="padding-bottom: 15px;">
-    <figure style="display: none;">
-        <img src="http://m8.hongjingkeji.com/Public/novel/img/daytime.png">
-    </figure>
-    <figure style="display: none;">
-        <img src="http://m8.hongjingkeji.com/Public/novel/img/night.png">
-    </figure>
+
     <p id="content" style=" font-size:18px">
         @foreach(explode(PHP_EOL,trim($cartoon->url))? : [trim($cartoon->url)] as $url)
         <img src="{{$url}}">
@@ -57,7 +44,6 @@
       </p>
     <div class="flex">
         <div>
-
             <a href=" @if($cartoon->page > 1)/cartoon/{{$cartoon->cartoon_id}}/{{$cartoon->page-1}}  @endif" class="before">上一章</a>
 
         </div>
@@ -67,6 +53,23 @@
     </div>
 </div>
 <div class="read_btmnav" style="height: 50px">
+    <style>
+        .float-top{
+            width: 100%;
+            height: 35px;
+            position: fixed;
+            top: 0;
+            background-color: black;
+            opacity:0.9;
+        }
+
+    </style>
+    <div class="float-top">
+            {{--<div style="color: #ffffff;text-align:center">{{$cartoon->name}}</div>--}}
+
+           <div style="color: #ffffff;text-align:center">第{{$cartoon->page}}章     {{$cartoon->name}}</div>
+    </div>
+
 
 
     <ul class="read_btmnav_btm">
@@ -78,16 +81,17 @@
         </li>
 
         <li>
-            <a href="/index.php?m=&amp;c=Commic&amp;a=chapter&amp;commic_id=1&amp;chapter_id=10882">
+            <a href="/list/{{$cartoon->cartoon_id}}">
                 <span class="iconfont icon-mulu"></span>
                 <span>目录</span>
             </a>
         </li>
         <li>
-            <a href="javascript:;" id="fav">
+            <a href="javascript:;" @if($collect_type=='uncollect') id="fav" @endif>
                 <span class="iconfont icon-shoucang"></span>
-                <span>收藏</span>
-            </a>				</li>
+                <span>@if($collect_type=='uncollect')收藏@else 已收藏 @endif</span>
+            </a>
+        </li>
         <li>
             <a href="/index.php?m=&amp;c=Commic&amp;a=comments&amp;commic_id=1&amp;chapter_id=10882">
                 <span class="iconfont icon-pinglun"></span>
@@ -107,18 +111,14 @@
         .float-btn a{background: rgba(0,0,0,.5); padding: 10px;color: #fff; border-bottom:1px solid #ccc; display:block;}
     </style>
     <div class="float-btn">
-<a>
 
-            <div>第{{$cartoon->page}}章</div>
-    <div>{{$cartoon->name}}</div>
-        </a>
         <a href="/">
             <div>
                 <span class="mui-icon mui-icon-home"></span>
             </div>
             <div>首页</div>
         </a>
-        <a href="/index.php?m=&amp;c=Spread&amp;a=weixin110">
+        <a href="/message">
             <div>
                 <span class="mui-icon mui-icon-info"></span>
             </div>
@@ -193,19 +193,8 @@
         toggleToolBar();
     })
 
-    // 记录阅读记录
-    function saveHistory(){
-        var data = {commic_id:1};
-        data.type = 2;
-        data.chapter_id = chapterList[curIndex].id;
-        data.is_finished = curIndex >= chapterList.length - 1 ? 1 : 0;
-        $.post("/index.php?m=&c=Commic&a=save_history", data, function(d){
-            console.log(d);
-        });
-    }
 
-    // 首次打开页面的时候调用一次
-    saveHistory();
+
 
     //点击收藏  改变里面文本内容
     $('#fav').click(function(){
@@ -222,23 +211,7 @@
         });
     });
 
-    // 拖动进度的事件监听
-    document.getElementById('block-range').addEventListener('input',function(e){
-        var index = $(e.target).val();
-        var wid = index/$(e.target).attr('max')*100;
-        $('.read_btmnav_top p').css({
-            width : wid + '%'
-        });
-        $('.mask span').html(wid.toFixed(0) + '%');
-        $('.mask h3').text(chapterList[index].title);
-        $('.mask').show();
-    });
 
-    // 拖动进度结束的事件监听
-    document.getElementById('block-range').addEventListener('change',function(e){
-        curIndex = $(e.target).val();
-        loadContent();
-    });
 
     function changeUrlArg(url, arg, val){
         var pattern = arg+'=([^&]*)';
@@ -269,66 +242,7 @@
         });
     }
 
-    // 加载内容
-    function loadContent(){
-        var chapterId = chapterList[curIndex].id;
 
-        $("#block-range").val(curIndex);
-        var wid = curIndex/$("#block-range").attr('max')*100;
-        $('.read_btmnav_top p').css({
-            width : wid + '%'
-        });
-
-
-        $('.mask').hide()
-        // 加载数据
-        var l = layer.load(2);
-        $.post("/index.php?m=&c=Commic&a=fetch_chapter&commic_id=1&spread_id=", {index:curIndex}, function(d){
-            layer.close(l);
-            // 如果返回2则表示书币不够，需要充值
-            if(d.status!=1){
-                if(d.status == 2){
-                    // 直接调用购买
-                    var buyfunc = $(".buyway-item:eq(0)").attr('onclick');
-                    if(!buy || buy == undefined){
-                        alert('未设置付费方式');
-                        return false;
-                    }
-                    console.log(buyfunc);
-                    eval(buyfunc);return false;
-                    $(".buyway-mask,.buyway").show();
-                    return false;
-                }
-                if(d.status == 3){
-                    location.href = d.url;
-                    return false;
-                    layer.msg('书币不足，请充值',{time:10}, function(){
-                        location.href = d.url;
-                    });
-                    return false;
-                }
-                alert(d.info);
-                if(d.url && d.url !='')location.href = d.url;
-                return false;
-            }
-            document.title = d.info.title;
-
-            $("#content").html(d.info.body);
-            $('html,body').animate({scrollTop:0}, 100);
-            var curUrl = changeUrlArg(location.href, 'chapter_id', chapterId);
-            window.history.replaceState(null, '阅读', curUrl);
-            saveHistory();
-
-            // 如果需要关注则显示二维码
-            /**/
-            if(spreadInfo && spreadInfo.force_sub && spreadInfo.force_sub <= curIndex){
-                // 跳转到关注页面
-                if(spreadInfo.force_on == 1 || !subShow)subscribe();
-                return false;
-            }
-            /**/
-        });
-    }
 
     function buy(buyway){
         var l = layer.load(2);
@@ -363,8 +277,7 @@
             layer.msg('没有了');
             return false;
         }
-        curIndex --;
-        loadContent();
+
     });
 
     $(".after").on("click", function(){
@@ -372,10 +285,9 @@
             layer.msg('没有了');
             return false;
         }
-        curIndex ++;
-        loadContent();
+
     });
-    loadContent();
+
 </script>
 <div class="layui-layer-move"></div>
 

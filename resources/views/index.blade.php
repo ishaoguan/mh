@@ -25,11 +25,8 @@
 </head>
 <body style="background:transparent">
 
-<a href="/index.php?m=&amp;c=Commic&amp;a=search_form" href2="javascript:$('.search-form').show();$('.search').hide();;" class="search"><span class="iconfont icon-sousuo"></span></a>
-<div class="search-form">
-    <input type="search" name="keyword">
-    <a href="javascript:location.href='http://at.alicdn.com/index.php?m=&amp;c=Commic&amp;a=search&amp;keyword='+$('input[name=keyword]').val();" class="search-btn"><span class="iconfont icon-sousuo"></span></a>
-</div>
+{{--<a href="/search" class="search"><span class="iconfont icon-sousuo"></span></a>--}}
+
 <div class="box_index">
     <div class="bg_pad" style="padding: 0;">
 
@@ -54,22 +51,23 @@
                 <img src="http://m8.hongjingkeji.com/Public/anime/img/hu.png" style=" position:absolute; bottom:-2px; left:0; width:100%; z-index:9;">
             </div>
             <!--头部列表-->
-            <ul class="list">
-                <li>
-                    <a href="http://at.alicdn.com/index.php?m=&amp;c=my&amp;a=invite">
-                        <img style="width: 90%;" src="http://m8.hongjingkeji.com//Public/anime/img/1.png" alt="">
-                    </a>
-                </li>
-                <li>
-                    <a href="http://at.alicdn.com/index.php?m=&amp;c=Commic&amp;a=rank">
-                        <img style="width: 90%;" src="http://m8.hongjingkeji.com//Public/anime/img/2.png" alt="">
-                    </a>
-                </li>
-                <li>
-                    <a href="http://at.alicdn.com/index.php?m=&amp;c=My&amp;a=charge">
-                        <img style="width: 90%;" src="http://m8.hongjingkeji.com//Public/anime/img/3.png" alt="">
-                    </a>
-                </li>					</ul>
+            {{--<ul class="list">--}}
+                {{--<li>--}}
+                    {{--<a href="http://at.alicdn.com/index.php?m=&amp;c=my&amp;a=invite">--}}
+                        {{--<img style="width: 90%;" src="http://m8.hongjingkeji.com//Public/anime/img/1.png" alt="">--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li>--}}
+                    {{--<a href="http://at.alicdn.com/index.php?m=&amp;c=Commic&amp;a=rank">--}}
+                        {{--<img style="width: 90%;" src="http://m8.hongjingkeji.com//Public/anime/img/2.png" alt="">--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li>--}}
+                    {{--<a href="http://at.alicdn.com/index.php?m=&amp;c=My&amp;a=charge">--}}
+                        {{--<img style="width: 90%;" src="http://m8.hongjingkeji.com//Public/anime/img/3.png" alt="">--}}
+                    {{--</a>--}}
+                {{--</li>			--}}
+            {{--</ul>--}}
         </div>
     </div>
     <!--独家首发-->

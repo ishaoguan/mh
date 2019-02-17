@@ -23,9 +23,15 @@ Route::get('cate','IndexController@cate');
  * my我的
  */
 Route::get('my','UserController@my');
-Route::get('recharge','UserController@recharge');
-Route::get('password','UserController@password');
+//充值页面
+Route::get('recharge','UserController@recharge')->middleware('checklogin');
+//修改密码页面
+Route::get('password','UserController@password')->middleware('checklogin');
 Route::post('changePassword','UserController@changePassword');
+//留言页面
+Route::get('message','UserController@message')->middleware('checklogin');
+//留言功能
+Route::post('message','UserController@message')->middleware('checklogin');
 
 
 
@@ -40,6 +46,13 @@ Route::get('reg','LoginController@reg');
 Route::post('doLogin','LoginController@doLogin');
 Route::post('doReg','LoginController@doReg');
 
+//注销
+Route::post('logOut','LoginController@logOut');
 
 
 
+//漫画
+
+Route::get('addCollect','CartoonController@addCollect');
+
+Route::post('delCollect','CartoonController@delCollect');

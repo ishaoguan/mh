@@ -1,5 +1,6 @@
 <html><head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
@@ -8,6 +9,7 @@
     <title>我的</title>
     <link href="{{asset('css/mui.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/reset.css')}}">
+    <link rel="stylesheet" href="http://m8.hongjingkeji.com/Public/plugins/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer">
     <link rel="stylesheet" href="{{asset('css/swiper-3.4.2.min.css')}}">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_809906_xsowanr9ms8.css">
     <link rel="stylesheet" href="{{asset('css/novel.css')}}">
@@ -29,19 +31,31 @@
         <div class="mine_top_content">
             <img src="http://m8.hongjingkeji.com/Public/images/nohead.jpg">
             <div style=" overflow:hidden; max-width:50%; height:60px;">
-                <p style=" line-height:30px; height:30px; overflow:hidden;">
-                    900b0												</p>
-                <p style=" margin-top:0;">
-                    ID:<span>2468</span>
-                    <span class="mui-badge mui-badge-purple">未开通VIP</span>						</p>
+                @if($user ==false)
+                  <a href="/login">  <p  style="color: #ff4a4a; line-height:30px; height:30px; overflow:hidden;">
+                        点击登陆
+                    </p></a>
+                    @else
+                    <p style=" line-height:30px; height:30px; overflow:hidden;">
+                        {{$user->username}}
+                    </p>
+                    <p style=" margin-top:0;">
+                        {{--ID:<span>2468</span>--}}
+                        {{--<span class="mui-badge mui-badge-purple">未开通VIP</span>--}}
+                    </p>
+                    @endif
+
             </div>
-            <a href="javascript:;" class="last"><i class="iconfont icon-yiqiandao"></i><span>签到</span></a>
+            {{--<a href="javascript:;" class="last"><i class="iconfont icon-yiqiandao"></i><span>签到</span></a>--}}
         </div>
+        @if($user !=false)
         <div class="mine_top_btm">
             <div>
                 <a href="javascript:;">
-                    <p>余额</p>
-                    <span>0.00</span>
+                    <p>金币</p>
+
+                    <span>{{$user->gold}}</span>
+
                 </a>
             </div>
             <div>
@@ -49,6 +63,7 @@
                 <span>0.00</span>
             </div>
         </div>
+        @endif
     </div>
     <ul class="mine_content">
         <li>
@@ -57,6 +72,15 @@
             </figure>
             <a href="/recharge">
                 <span>立即充值</span>
+                <span class="iconfont icon-xiangyoujiantou"></span>
+            </a>
+        </li>
+        <li>
+            <figure>
+                <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_bill.png">
+            </figure>
+            <a href="/message">
+                <span> 交流反馈</span>
                 <span class="iconfont icon-xiangyoujiantou"></span>
             </a>
         </li>
@@ -126,6 +150,18 @@
                 <span class="iconfont icon-xiangyoujiantou"></span>
             </a>
         </li>
+
+        <li id="logOut">
+        <figure>
+        <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_gift.png">
+        </figure>
+        <a>
+        <span>注销登陆</span>
+        <span class="iconfont icon-xiangyoujiantou"></span>
+        </a>
+        </li>
+
+
     </ul>
     <div style="height: 49px;"></div>
     <!-- 底部nav -->
@@ -135,6 +171,29 @@
 <script src="{{asset('/js/start.js')}}"></script>
 @include('common.js')
 <script type="text/javascript">
+
+    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+    //点击按钮 判断输入框中的输入内容
+    $('#logOut').click(function(){
+
+        var l = layer.load(1.5);
+        $.post("/logOut", {}, function(d){
+
+            layer.close(l);
+            if(d.code !=201){
+
+                    layer.msg(d.msg);
+                    return false;
+
+            }
+            layer.msg(d.msg, function(){
+                location.href = d.data.url;
+            });
+        });
+    });
+
+
+
     //监听a标签 跳转页面事件
     mui('.mui-bar-tab').on('tap', 'a', function(e) {
         location.href = $(this).attr('href');
@@ -155,4 +214,5 @@
         }
     });
 </script>
+
 </body></html>

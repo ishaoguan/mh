@@ -6,10 +6,14 @@ use App\Models\Banner;
 use App\Models\Cartoon;
 use App\Models\Cartoon_list;
 use App\Models\Cate;
+use App\Models\Collect;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+    /**首页页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $banners = Banner::select('image','cartoon_id')->get()->toArray();
@@ -21,7 +25,7 @@ class IndexController extends Controller
         $cartoons = Cartoon::get();
 
         return view('index',[
-            'type'=>1,
+            'type'=>config('mh.type.index'),
             'banners'=>$banners,
             'cartoons'=>$cartoons,
             'cartoons_f'=>$cartoons_f,
@@ -33,7 +37,10 @@ class IndexController extends Controller
     }
 
 
-
+    /**漫画详情页面
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     */
     public function detail($id)
     {
         if(!$cartoon = Cartoon::find($id)){
@@ -42,15 +49,24 @@ class IndexController extends Controller
 
         $likes = Cartoon::where('cate_id',$cartoon->cate_id)->orderBy('sort','desc')->limit(6)->get();
 
+        $collect_type = 'uncollect';
+
+        if($user_id = $this->checkLogin()){
+            if($collect =  Collect::where('user_id',$user_id)->where('cartoon_id',$id)->first()){
+                $collect_type = 'collect';
+            }
+        }
+
         return view('detail',[
             'cartoon'=>$cartoon,
-            'likes'=>$likes
+            'likes'=>$likes,
+            'collect_type'=>$collect_type,
         ]);
 
     }
 
 
-    /**漫画详情页面
+    /**漫画页面
      * @param $id
      * @param $list_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
@@ -61,13 +77,25 @@ class IndexController extends Controller
             return 'error ! 未找到此页面';
         }
 
+        $collect_type = 'uncollect';
+
+        if($user_id = $this->checkLogin()){
+            if($collect =  Collect::where('user_id',$user_id)->where('cartoon_id',$id)->first()){
+                $collect_type = 'collect';
+            }
+        }
+
         return view('cartoon',[
             'cartoon'=>$cartoon_list,
+            'collect_type'=>$collect_type,
         ]);
     }
 
 
-
+    /**漫画目录页面
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     */
     public function cartoon_list($id)
     {
         if(!$cartoon_list =  Cartoon_list::where('cartoon_id',$id)->get()){
@@ -82,22 +110,37 @@ class IndexController extends Controller
 
     }
 
-
+    /**分类页面
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function cate(Request $request)
     {
 
         $cates = Cate::select(['id','name'])->get();
-        $cartoons = Cartoon::select(['name','thumb','detail','introduce','hit']);
+        $cartoons = Cartoon::select(['id','name','thumb','detail','introduce','hit']);
         if($request->cate_id){
             $cartoons =  $cartoons->where('cate_id',$request->cate_id);
         }
+        if(isset($request->is_end) && $request->is_end !=3  && !empty($request->is_end)){
+            $cartoons =  $cartoons->where('end',$request->is_end);
+        }
+        if(isset($request->is_free) && $request->is_free !=3 &&  !empty($request->is_free)){
+            $cartoons =  $cartoons->where('pay',$request->is_free);
+        }
+
+
         $cartoons = $cartoons->get();
 
         return view('cate',[
-            'type'=>2,
+            'type'=>config('mh.type.cate'),
             'cates'=>$cates,
             'cartoons'=>$cartoons,
         ]);
     }
+
+
+
+
 
 }

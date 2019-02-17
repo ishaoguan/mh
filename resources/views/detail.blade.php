@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_921482_i89ed3fqez.css">
     <link rel="stylesheet" href="{{asset('css/swiper-3.4.2.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/anime.css')}}">
+    <link rel="stylesheet" href="http://m8.hongjingkeji.com/Public/plugins/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer">
     <style>
         .search{ display:block; width:30px; line-height:30px; text-align:center; background:rgba(0,0,0,.5); border-radius:50%;
             position:absolute; top:10px; right:10px; color:#fff; z-index:10;
@@ -27,10 +28,11 @@
 <body>
 <div class="directory particulars">
     <div class="header_tab">
+
         <div class="top_window" style=" background:url({{$cartoon->thumb}}); background-size:cover; height:200px;">
 
-            <div class="mask">
-                <span onclick="goBack()" class="iconfont icon-xiangyou1 goback"></span>
+            <div class="mask">  <a onclick="javascript:history.back(-1);"  style="color:#ff4a4a;font-size: xx-large" > << </a>
+                <span class="iconfont icon-xiangyou1 goback"></span>
                 <a style="display: block;" href="/index.php?m=&amp;c=Commic&amp;a=index">
                     <span class="iconfont icon-fangzi home"></span>
                 </a>
@@ -113,9 +115,9 @@
 
         <div style="height: 47.5px;"></div>
         <div class="foot">
-            <div class="collection" id="fav">
+            <div class="collection" @if($collect_type=='uncollect') id="fav" @endif>
                 <span class="iconfont icon-guanzhu"></span>
-                <span class="txt">加入收藏</span>
+                <span class="txt">@if($collect_type=='uncollect') 加入收藏@else 已收藏 @endif</span>
             </div>
             <div class="start">
                 <a href="/cartoon/{{$cartoon->id}}/1">开始阅读</a>
@@ -182,16 +184,23 @@
 
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{asset('js/layer.js')}}"></script>
     <script src="{{asset('js/mui.min.js')}}"></script>
 
     <script type="text/javascript">
         //点击收藏/取消收藏
         $('#fav').click(function(){
-            $.post("/index.php?m=&c=Commic&a=toggle_fav",{commic_id:1, type:2}, function(d){
-                if(d.faved){
-                    $("#fav .txt").text('已收藏');
+            var cartoon_id = "{{$cartoon->id}}"
+
+            $.get("/addCollect",{cartoon_id:cartoon_id}, function(d){
+                if(d.code != 201){
+                    if(d.code == 501){
+                        layer.msg(d.msg);
+                    }
+                    layer.msg(d.msg);
+
                 }else{
-                    $("#fav .txt").text('加入收藏');
+                    $("#fav .txt").text('已收藏');
                 }
             });
         });
