@@ -7,6 +7,7 @@ use App\Models\Cartoon;
 use App\Models\Cartoon_list;
 use App\Models\Cate;
 use App\Models\Collect;
+use App\Models\Footprint;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -83,7 +84,24 @@ class IndexController extends Controller
             if($collect =  Collect::where('user_id',$user_id)->where('cartoon_id',$id)->first()){
                 $collect_type = 'collect';
             }
+
+            if($footprint =  Footprint::where('user_id',$user_id)->where('cartoon_id',$id)->first()){
+                $footprint->update([
+                    'page'=>$list_id,
+                    'list_name'=>$cartoon_list->name
+                ]);
+            }else{
+                Footprint::create([
+                    'user_id'=>$user_id,
+                    'cartoon_id'=>$id,
+                    'page'=>$list_id,
+                    'list_name'=>$cartoon_list->name
+                ]);
+
+            }
+
         }
+
 
         return view('cartoon',[
             'cartoon'=>$cartoon_list,
@@ -140,6 +158,31 @@ class IndexController extends Controller
     }
 
 
+    /**书架
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function bookcase()
+    {
+
+        if($user_id = $this->checkLogin()){
+
+            $cartoon_ids = Collect::where('user_id',$user_id)->pluck('cartoon_id')->toArray();
+
+            $cartoons =Cartoon::with(['footprint'=>function ($q) use ($user_id){
+                $q->where('user_id',$user_id);
+            }])->whereIn('id',$cartoon_ids)->get();
+
+
+            return view('bookcase',[
+                'cartoons'=>$cartoons
+            ]);
+        }
+
+
+        return  view('login');
+
+
+    }
 
 
 

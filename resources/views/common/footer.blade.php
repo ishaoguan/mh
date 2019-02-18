@@ -1,5 +1,5 @@
 <nav class="mui-bar mui-bar-tab">
-    <a href="http://at.alicdn.com/index.php?m=&amp;c=My&amp;a=history" class="mui-tab-item ">
+    <a href="/bookcase" class="mui-tab-item ">
         <div>
             <img class="posi_img" src="http://m8.hongjingkeji.com/Public/anime/img/nav_bookcase_red.png">
             <img src="http://m8.hongjingkeji.com/Public/anime/img/nav_bookcase_gray.png">

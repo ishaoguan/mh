@@ -17,4 +17,9 @@ class Cartoon extends Model
     {
         return $this->hasOne(Cate::class,'id','cate_id');
     }
+
+    public function footprint()
+    {
+        return $this->belongsTo(Footprint::class,'id','cartoon_id');
+    }
 }

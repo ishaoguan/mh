@@ -17,6 +17,8 @@ Route::get('detail/{id}','IndexController@detail');
 Route::get('cartoon/{id}/{list_id}','IndexController@cartoon');
 Route::get('list/{id}','IndexController@cartoon_list');
 Route::get('cate','IndexController@cate');
+//书签
+Route::get('bookcase','IndexController@bookcase');
 
 
 /**
