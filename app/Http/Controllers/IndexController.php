@@ -8,6 +8,7 @@ use App\Models\Cartoon_list;
 use App\Models\Cate;
 use App\Models\Collect;
 use App\Models\Footprint;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -78,29 +79,46 @@ class IndexController extends Controller
             return 'error ! 未找到此页面';
         }
 
+
         $collect_type = 'uncollect';
 
         if($user_id = $this->checkLogin()){
+            if($user =User::find($user_id)){
+                //判断该章节是否观看过
+                if(!Footprint::where('user_id',$user_id)->where('cartoon_id',$id)
+                    ->where('page',$list_id)
+                    ->first()){
+                    if($user->gold - $cartoon_list->pay <0){
+                        return "<script>alert('余额不足哦');window.history.go(-1)</script>";
+                    }{
+                        $user->update([
+                            'gold'=>$user->gold - $cartoon_list->pay
+                        ]);
+                        Footprint::create([
+                            'user_id'=>$user_id,
+                            'cartoon_id'=>$id,
+                            'page'=>$list_id,
+                            'list_name'=>$cartoon_list->name
+                        ]);
+                    }
+                }
+
+            }else{
+                return 'error';
+            }
+
             if($collect =  Collect::where('user_id',$user_id)->where('cartoon_id',$id)->first()){
                 $collect_type = 'collect';
             }
 
-            if($footprint =  Footprint::where('user_id',$user_id)->where('cartoon_id',$id)->first()){
-                $footprint->update([
-                    'page'=>$list_id,
-                    'list_name'=>$cartoon_list->name
-                ]);
-            }else{
-                Footprint::create([
-                    'user_id'=>$user_id,
-                    'cartoon_id'=>$id,
-                    'page'=>$list_id,
-                    'list_name'=>$cartoon_list->name
-                ]);
 
+        }else{
+            if($cartoon_list->pay != 0){
+                return "<script>alert('请先登陆');window.history.go(-1)</script>";
             }
-
         }
+
+
 
 
         return view('cartoon',[
@@ -169,7 +187,7 @@ class IndexController extends Controller
             $cartoon_ids = Collect::where('user_id',$user_id)->pluck('cartoon_id')->toArray();
 
             $cartoons =Cartoon::with(['footprint'=>function ($q) use ($user_id){
-                $q->where('user_id',$user_id);
+                $q->where('user_id',$user_id)->orderBy('created_at','desc')->limit(1);
             }])->whereIn('id',$cartoon_ids)->get();
 
 
