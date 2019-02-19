@@ -31,7 +31,9 @@
 
         <div class="top_window" style=" background:url({{$cartoon->thumb}}); background-size:cover; height:200px;">
 
-            <div class="mask">  <a onclick="javascript:history.back(-1);"  style="color:#ff4a4a;font-size: xx-large" > << </a>
+            <div class="mask">
+                <br>
+                <a onclick="javascript:history.back(-1);"  style="color:#ff4a4a;font-size: x-large;" > 返回首页 </a>
                 <span class="iconfont icon-xiangyou1 goback"></span>
                 <a style="display: block;" href="/index.php?m=&amp;c=Commic&amp;a=index">
                     <span class="iconfont icon-fangzi home"></span>

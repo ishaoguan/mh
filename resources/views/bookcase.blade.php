@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('/css/swiper-3.4.2.min.css')}}">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_809906_xsowanr9ms8.css">
     <link rel="stylesheet" href="{{asset('css/novel.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/anime.css')}}">
     <style>
         html,body,{ max-width:600px; margin:0 auto;}
         .mui-bar-tab .mui-tab-item.mui-active{ color:#3688ff}
@@ -34,20 +35,19 @@
     <div class="">
         <ol class="index_list_ol free_list">
             @foreach($cartoons as $cartoon)
-            <li>
+            <li onclick="javascript:window.location.href='/detail/{{$cartoon->id}}'">
 
                 <img src="{{$cartoon->thumb}}">
                 <div class="index_list_ol_div">
-                    <h3>{{$cartoon->name}}</h3>
+                    <h3 >{{$cartoon->name}}</h3>
                     <p class="index_list_ol_div_btm" style=" color:#aaa; margin-top:0;">
 
                     </p>
-                    <p class="index_list_ol_div_btm" style=" color:#aaa; margin-top:0;">
+                    <p class="index_list_ol_div_btm" style="color:#aaa; margin-top:8px;">
 @if(isset($cartoon->footprint))上次看到：第{{$cartoon->footprint->page}}话 {{$cartoon->footprint->list_name}}
                     @endif
                     </p>
-                    <a href="
-@if(isset($cartoon->footprint))/cartoon/{{$cartoon->id}}/{{$cartoon->footprint->page}}
+                    <a href="@if(isset($cartoon->footprint))/cartoon/{{$cartoon->id}}/{{$cartoon->footprint->page}}
                     @else/cartoon/{{$cartoon->id}}/1
 @endif" class="readbtn">继续阅读</a>
                 </div>
@@ -57,49 +57,8 @@
     </div>
 
     <div style=" height:60px;"></div>
-    <nav class="mui-bar mui-bar-tab">
-        <a href="/index.php?m=&amp;c=My&amp;a=history" class="mui-tab-item mui-active">
-            <span style="display: block;font-size: 20px;" class="iconfont icon-shujia"></span>
-            <span class="mui-tab-label">书架</span>
-        </a>
-        <a href="/index.php?m=&amp;c=Commic&amp;a=index" class="mui-tab-item ">
-            <span style="display: block;font-size: 20px;" class="iconfont icon-shucheng"></span>
-            <span class="mui-tab-label">书城</span>
-        </a>
-        <!--a href="/index.php?m=&c=My&a=charge" class="mui-tab-item ">
-            <span style="display: block;font-size: 20px;" class="iconfont icon-chongzhi"></span>
-            <span class="mui-tab-label">充值</span>
-        </a-->
-        <a href="/index.php?m=&amp;c=Commic&amp;a=cates" class="mui-tab-item ">
-            <span style="display: block;font-size: 20px;" class="iconfont icon-leimupinleifenleileibie2"></span>
-            <span class="mui-tab-label">书库</span>
-        </a>
-        <a href="/index.php?m=&amp;c=My&amp;a=index" class="mui-tab-item ">
-            <span style="display: block;font-size: 20px;" class="iconfont icon-wode2"></span>
-            <span class="mui-tab-label">我的</span>
-        </a>
-    </nav>
+    <!-- 底部nav -->
 
-{{--</div>--}}
-{{--<script src="//stat.loxn.cn/stat.js?fr=novel"></script>--}}
-
-
-{{--<script src="/Public/novel/js/mui.min.js"></script>--}}
-{{--<script src="/Public/novel/js/jquery-3.3.1.min.js"></script>--}}
-{{--<script type="text/javascript">--}}
-    {{--$('.bookcase_top a').click(function(){--}}
-        {{--$('.bookcase_top a').removeClass('bookcase_top_active');--}}
-        {{--$(this).addClass('bookcase_top_active');--}}
-    {{--});--}}
-
-    {{--//监听a标签 跳转页面事件--}}
-    {{--mui('.mui-bar-tab').on('tap', 'a', function(e) {--}}
-        {{--location.href = $(this).attr('href');--}}
-    {{--});--}}
-    {{--//为了方便查看页面设置跳转   完成项目后删除--}}
-    {{--$('#bookcase_bookmarks ul li').click(function(){--}}
-        {{--location.href = $(this).attr('href');--}}
-    {{--})--}}
-{{--</script>--}}
+@include('common.footer')
 </body>
 </html>

@@ -11,7 +11,7 @@
         <a href="/">
             <span class="iconfont icon-xiangzuojiantou"></span>
         </a>
-        <span>目录</span>
+        <span>分类</span>
     </header>
     <div class="cftion_top">
         <div>类型</div>

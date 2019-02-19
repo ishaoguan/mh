@@ -207,7 +207,8 @@ class IndexController extends Controller
 
 
             return view('bookcase',[
-                'cartoons'=>$cartoons
+                'cartoons'=>$cartoons,
+                'type'=>config('mh.type.bookcase'),
             ]);
         }
 

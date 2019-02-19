@@ -123,7 +123,8 @@
             position: absolute;
             bottom: 50px;
             left: 50%;
-            margin-left: -59px;
+            margin-left: -84px;
+            margin-bottom: 50px;
         }
         .box_login .bottom a{
             font-size: 13px;
@@ -160,11 +161,12 @@
 
     <div class="btn">
         <button id="toastBtn" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">登录</button>
+        <p class="bottom">  <a href="/">返回首页</a> 还没有账号？<a href="/reg">去注册</a>
+            <br>
+
+        </p>
     </div>
-    <p class="bottom">还没有账号？<a href="/reg">去注册</a>
-        <br>
-        <a href="/">返回首页</a>
-    </p>
+
 </div>
 
 @include('common.js')
@@ -172,6 +174,9 @@
 
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('body').height($('body')[0].clientHeight);
+    });
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
     //设置密码是否可见
     var bool = true;

@@ -125,7 +125,7 @@
             position: absolute;
             bottom: 50px;
             left: 50%;
-            margin-left: -59px;
+            margin-left: -80px;
         }
         .box_login .bottom a{
             font-size: 13px;
@@ -160,20 +160,22 @@
             </div>
         </form>
     </div>
-    <a href="/index.php?m=&amp;c=Public&amp;a=setpass" class="forget_pass">忘记密码？</a>
+    {{--<a href="/index.php?m=&amp;c=Public&amp;a=setpass" class="forget_pass">忘记密码？</a>--}}
     <div class="btn">
         <button id="toastBtn" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">注册</button>
+        <div class="bottom" ><a href="/" >返回首页</a> 已有账号？<a href="/login">去登陆</a>
+
+
+        </div>
     </div>
-    <p class="bottom"> 已有账号？<a href="/login">去登陆</a>
-        <br>
-        <a href="/">返回首页</a>
-    </p>
+
 </div>
 @include('common.js')
 <script src="{{asset('js/start.js')}}"></script>
 
 
 <script type="text/javascript">
+
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
     //设置密码是否可见
     var bool = true;

@@ -1,5 +1,5 @@
 <nav class="mui-bar mui-bar-tab">
-    <a href="/bookcase" class="mui-tab-item ">
+    <a href="/bookcase" class="mui-tab-item  @if(isset($type) && $type==0) mui-active @endif" >
         <div>
             <img class="posi_img" src="http://m8.hongjingkeji.com/Public/anime/img/nav_bookcase_red.png">
             <img src="http://m8.hongjingkeji.com/Public/anime/img/nav_bookcase_gray.png">
