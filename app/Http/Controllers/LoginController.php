@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helper\Ip;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    use Ip;
     public function login()
     {
 
@@ -65,6 +67,7 @@ class LoginController extends Controller
             return $this->error('用户名已被注册');      //如果用户名重复返回error
         }
 
+
         $ip = $this->getIp();
         $count =User::where('reg_ip',$ip)->where('reg_ip','!=','0.0.0.0')->count();
         if($count >3)
@@ -110,7 +113,7 @@ class LoginController extends Controller
      * @param bool $client
      * @return mixed
      */
-    public function getIp($type = 0,$client=true)
+    public function getIp1($type = 0,$client=true)
     {
 
         $type       =  $type ? 1 : 0;

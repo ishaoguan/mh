@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helper\Ip;
 use App\Models\Banner;
+use App\Models\Browsing_history;
 use App\Models\Cartoon;
 use App\Models\Cartoon_list;
 use App\Models\Cate;
@@ -13,11 +15,24 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+    use Ip;
     /**首页页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
+        $ip=$this->getIp();
+
+        $nowDayFirst = date('Y-m-d').' 00:00:00'; //当天开始时间
+        $nowDayLast  = date('Y-m-d').' 23:59:59'; //当天结束时间
+
+        if(!Browsing_history::where('ip',$ip)->whereBetween('created_at',[$nowDayFirst,$nowDayLast])->first()){
+            Browsing_history::create([
+                'ip'=>$ip
+            ]);
+        }
+
+
         $banners = Banner::select('image','cartoon_id')->get()->toArray();
 
 //        $cartoons_one = Cartoon::where('recommend',2)->where('cate_id',1)->get()->toArray();
