@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 require_once ('Pay/dkSdk/lib/epay_submit.class.php');
+require_once("Pay/dkSdk/epay.config.php");
+require_once("Pay/dkSdk/lib/epay_notify.class.php");
 use App\Http\Helper\Code;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -24,7 +26,7 @@ class PayController extends Controller
             "return_url"	=>  config('epay.'.$way.'.return_url'),
             "out_trade_no"	=> $this->randOrderNum($user_id),
             "name"	=> '充值',
-            "money"	=> '0.02',
+            "money"	=> '0.01',
             "sitename"	=> '易支付',
         );
         $alipay_config = config('epay.'.$way);
@@ -43,8 +45,7 @@ class PayController extends Controller
 
     public function notify_url()
     {
-      require_once("Pay/dkSdk/epay.config.php");
-      require_once("Pay/dkSdk/lib/epay_notify.class.php");
+
       $way = $this->way;
       $alipay_config = config('epay.'.$way);
       //计算得出通知验证结果
