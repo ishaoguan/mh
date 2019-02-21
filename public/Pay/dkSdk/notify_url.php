@@ -52,6 +52,8 @@ if($verify_result) {//验证成功
 		//注意：
 		//付款完成后，支付宝系统发送该交易状态通知
         \Illuminate\Support\Facades\Log::info('支付成功 '.date('Y-m-d H:i:s',time()));
+    }else{
+        \Illuminate\Support\Facades\Log::error('支付失败 '.date('Y-m-d H:i:s',time()));
     }
 
 	//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
