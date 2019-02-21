@@ -11,7 +11,7 @@
 |
 */
 
-
+Route::get('/payy','PayController@pay');
 Route::get('/','IndexController@index');
 Route::get('detail/{id}','IndexController@detail');
 Route::get('cartoon/{id}/{list_id}','IndexController@cartoon');
@@ -58,3 +58,12 @@ Route::post('logOut','LoginController@logOut');
 Route::get('addCollect','CartoonController@addCollect');
 
 Route::post('delCollect','CartoonController@delCollect');
+
+
+
+//支付
+
+Route::get('pay/dk/notify_url','PayController@notify_url');
+Route::get('pay/dk/return_url','PayController@return_url');
+
+
