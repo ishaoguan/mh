@@ -74,6 +74,8 @@ class IndexController extends Controller
             }
         }
 
+        $cartoon->update(['hit'=>$cartoon->hit+1]);
+
         return view('detail',[
             'cartoon'=>$cartoon,
             'likes'=>$likes,
@@ -212,8 +214,9 @@ class IndexController extends Controller
             ]);
         }
 
+        return "<script>alert('请先登陆');window.history.go(-1)</script>";
 
-        return  view('login');
+//        return  view('login');
 
 
     }
