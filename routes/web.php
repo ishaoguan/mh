@@ -12,7 +12,7 @@
 */
 
 Route::get('/listScript/{id}/{num}','IndexController@listScript');
-
+Route::get('/down','IndexController@preg_image');
 Route::get('/','IndexController@index');
 Route::get('detail/{id}','IndexController@detail');
 Route::get('cartoon/{id}/{list_id}','IndexController@cartoon');
