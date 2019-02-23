@@ -154,7 +154,7 @@ class IndexController extends Controller
         if(!$cartoon_list =  Cartoon_list::where('cartoon_id',$id)->orderBy('id','asc')->get()){
             return 'error ! 未找到此页面';
         }
-        dd($cartoon_list);
+
         $status = Cartoon::find($id)->end==1?'已完结':'连载中';
         return view('list',[
             'cartoons'=>$cartoon_list,
