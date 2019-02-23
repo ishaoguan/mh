@@ -39,7 +39,7 @@
 
     <p id="content" style=" font-size:18px">
         @foreach(explode(PHP_EOL,trim($cartoon->url))? : [trim($cartoon->url)] as $url)
-        <img src="{{$url}}" onerror="javascript:NoImage(this)">
+        <img src="{{$url}}" onerror="this.src='/image/index/xyss.png'">
             @endforeach
       </p>
     <div class="flex">
