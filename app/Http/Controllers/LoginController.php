@@ -59,7 +59,9 @@ class LoginController extends Controller
     {
         $this->validate($request, [
             'username'=>'required|min:5|max:12',
+            'mobile'=>'check_mobile',
             'password'=>'required|min:5|max:15',
+
         ]);
 
 
@@ -74,12 +76,10 @@ class LoginController extends Controller
         {
             return $this->error('同一ip只能注册3次账号!');
         }
-
-        if ($user =  User::create([
-                'username' => $request->username,
-                'password' => $request->password,
-                'reg_ip'   => $ip
-                ])){
+        $data = $request->all();
+        $data['password'] = encrypt($request->password);
+        $data['reg_ip'] = $ip;
+        if ($user =  User::create($data)){
 
             session()->put(['user_id'=>$user->id]);
 

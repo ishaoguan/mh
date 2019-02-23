@@ -65,7 +65,7 @@
             layer.msg('原始密码不能为空');
             return false;
         }
-        var l = layer.load(1.5);
+        var l = layer.load(1);
         $.post("/changePassword", {password:password, password1:password1}, function(d){
 
             layer.close(l);

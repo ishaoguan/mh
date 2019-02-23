@@ -9,30 +9,38 @@ trait Ip{
      * @param bool $client
      * @return mixed
      */
-    public function getIp($type = 0,$client=true)
+    public function getIp()
     {
 
-        $type       =  $type ? 1 : 0;
-        static $ip  =   NULL;
-        if ($ip !== NULL) return $ip[$type];
-        if($client){
-            if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                $arr    =   explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-                $pos    =   array_search('unknown',$arr);
-                if(false !== $pos) unset($arr[$pos]);
-                $ip     =   trim($arr[0]);
-            }elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
-                $ip     =   $_SERVER['HTTP_CLIENT_IP'];
-            }elseif (isset($_SERVER['REMOTE_ADDR'])) {
-                $ip     =   $_SERVER['REMOTE_ADDR'];
-            }
-        }elseif (isset($_SERVER['REMOTE_ADDR'])) {
-            $ip     =   $_SERVER['REMOTE_ADDR'];
+        $ip= false;
+
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+
+            return $this->is_ip($_SERVER['HTTP_CLIENT_IP'])?$_SERVER['HTTP_CLIENT_IP']:$ip;
+
+        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+
+            return $this->is_ip($_SERVER['HTTP_X_FORWARDED_FOR'])?$_SERVER['HTTP_X_FORWARDED_FOR']:$ip;
+
+        }else{
+
+            return $this->is_ip($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:$ip;
+
         }
-        // 防止IP伪造
-        $long = sprintf("%u",ip2long($ip));
-        $ip   = $long ? array($ip, $long) : array('0.0.0.0', 0);
-        return $ip[$type];
+
+    }
+
+    function is_ip($str){
+
+        $ip=explode('.',$str);
+
+        for($i=0;$i<count($ip);$i++){
+
+            if($ip[$i]>255){
+
+            }
+        }
+        return preg_match('/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/',$str);
 
     }
 

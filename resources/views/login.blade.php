@@ -206,7 +206,7 @@
             layer.msg('用户名和密码必须大于5个字');
             return false;
         }
-        var l = layer.load(2);
+        var l = layer.load(1);
         $.post("/doLogin", {username:m, password:$("#password").val()}, function(d){
 
             layer.close(l);

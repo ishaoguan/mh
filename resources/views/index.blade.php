@@ -164,9 +164,8 @@
 </div>
 
 <div style=" background:#fff; padding-top:20px;">
-    <div style=" text-align:center; background-color:#fff; background:url(http://m8.hongjingkeji.com/Public/anime/img/btbg.jpg) no-repeat; background-size:100%; background-position:bottom center; padding-bottom:50px;">
+    <img src="{{asset('/image/index/xyss.png')}}">
 
-    </div>
 </div>
 <div style="height: 49px;"></div>
 <!-- 底部nav -->

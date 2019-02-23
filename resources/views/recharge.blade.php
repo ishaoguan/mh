@@ -308,7 +308,7 @@
         $("#item" + chargeId + '>div').addClass('selected');
     }
     function charge(chargeId){
-        var l = layer.load(2);
+        var l = layer.load(1);
         data.charge_id = chargeId;
         $.post("/index.php?m=&c=My&a=order", data, function(d){
             layer.close(l);
@@ -359,7 +359,7 @@
         // 关闭支付方式选择层
         $(".top_up_mask").hide();
 
-        var l = layer.load(2);
+        var l = layer.load(1);
         $.post("/index.php?m=&c=Pay&a=index",{payway:payway,sn:sn}, function(d){
             layer.close(l);
             if(!d.status){

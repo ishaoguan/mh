@@ -145,13 +145,17 @@
     <div class="binding_content">
         <form name="binding">
             <div class="mobile">
-                <img src="{{asset('/image/icon/password_img4.png')}}">
+                <img src="http://m8.hongjingkeji.com/Public/images/nohead.jpg">
                 <input type="text"  value="" name="username" placeholder="请输入您的用户名">
+            </div>
+            <div class="mobile">
+                <img src="{{asset('/image/icon/password_img4.png')}}">
+                <input type="text"  value="" name="mobile" placeholder="请输入您的手机号码">
             </div>
             <div class="pass" id="pass">
                 <img src="{{asset('/image/icon/password_img3.png')}}">
                 <span class="iconfont icon-yanjing"></span>
-                <input type="password"  id="password" value="" name="password" placeholder="请输入密码">
+                <input type="password"  id="password" value="" name="password" placeholder="请输入大于5位数的密码">
             </div>
             <div class="pass" id="pass1">
                 <img src="{{asset('/image/icon/password_img3.png')}}">
@@ -219,8 +223,16 @@
     //点击按钮 判断输入框中的输入内容
     $('#toastBtn').click(function(){
         var m = $("input[name='username']").val();
+        var mobile = $("input[name='mobile']").val();
         var p = $("#password").val();
         var p1 = $("#password1").val();
+
+        var pattern = /^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\d{8}$/;
+        if(mobile.length<1 || mobile.length>11 || !pattern.test(mobile)){
+            layer.msg('请输入正确的11位电话号码');
+            return false;
+        }
+
         if(p !== p1){
             layer.msg('两次密码不一致');
             return false;
@@ -229,8 +241,8 @@
             layer.msg('用户名和密码必须大于5个字');
             return false;
         }
-        var l = layer.load(2);
-        $.post("/doReg", {username:m, password:$("#password").val()}, function(d){
+        var l = layer.load(1);
+        $.post("/doReg", {mobile:mobile,username:m, password:$("#password").val()}, function(d){
 
             layer.close(l);
             if(d.code !=201){

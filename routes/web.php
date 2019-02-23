@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/payy','PayController@pay');
+Route::get('/listScript','IndexController@listScript');
+
 Route::get('/','IndexController@index');
 Route::get('detail/{id}','IndexController@detail');
 Route::get('cartoon/{id}/{list_id}','IndexController@cartoon');

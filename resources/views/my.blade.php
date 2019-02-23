@@ -29,7 +29,7 @@
 <div class="box_mine" style="">
     <div class="mine_top">
         <div class="mine_top_content">
-            <img src="http://m8.hongjingkeji.com/Public/images/nohead.jpg">
+          <a  href="/login">  <img src="http://m8.hongjingkeji.com/Public/images/nohead.jpg"></a>
             <div style=" overflow:hidden; max-width:50%; height:60px;">
                 @if($user ==false)
                   <a href="/login">  <p  style="color: #ff4a4a; line-height:30px; height:30px; overflow:hidden;">
@@ -151,6 +151,7 @@
             </a>
         </li>
 
+        @if($user !=false)
         <li id="logOut">
         <figure>
         <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_gift.png">
@@ -160,6 +161,17 @@
         <span class="iconfont icon-xiangyoujiantou"></span>
         </a>
         </li>
+            @else
+            <li onclick="javascript:window.location.href='/reg'">
+                <figure>
+                    <img src="http://m8.hongjingkeji.com/Public/novel/img/mine_gift.png">
+                </figure>
+                <a>
+                    <span>用户注册</span>
+                    <span class="iconfont icon-xiangyoujiantou"></span>
+                </a>
+            </li>
+        @endif
 
 
     </ul>
@@ -176,7 +188,7 @@
     //点击按钮 判断输入框中的输入内容
     $('#logOut').click(function(){
 
-        var l = layer.load(1.5);
+        var l = layer.load(1);
         $.post("/logOut", {}, function(d){
 
             layer.close(l);

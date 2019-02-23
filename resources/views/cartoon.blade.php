@@ -89,7 +89,7 @@
         <li>
             <a href="javascript:;" @if($collect_type=='uncollect') id="fav" @endif>
                 <span class="iconfont icon-shoucang"></span>
-                <span>@if($collect_type=='uncollect')收藏@else 已收藏 @endif</span>
+                <span class="txt">@if($collect_type=='uncollect')收藏@else 已收藏 @endif</span>
             </a>
         </li>
         <li>
@@ -198,19 +198,20 @@
 
     //点击收藏  改变里面文本内容
     $('#fav').click(function(){
-        $.post("/index.php?m=&c=Commic&a=toggle_fav",{commic_id:1, type:2}, function(d){
-            if(d.faved){
-                $("#fav").addClass('read_btmnav_btm_active');
-                $("#fav").find('.iconfont').attr('class', 'iconfont icon-yduixingxingshixin');
-                $("#fav").find('span').eq(1).html('已收藏');
+        var cartoon_id = "{{$cartoon->cartoon_id}}"
+
+        $.get("/addCollect",{cartoon_id:cartoon_id}, function(d){
+            if(d.code != 201){
+                if(d.code == 501){
+                    layer.msg(d.msg);
+                }
+                layer.msg(d.msg);
+
             }else{
-                $("#fav").removeClass('read_btmnav_btm_active');
-                $("#fav").find('.iconfont').attr('class', 'iconfont icon-shoucang');
-                $("#fav").find('span').eq(1).html('收藏');
+                $("#fav .txt").text('已收藏');
             }
         });
     });
-
 
 
     function changeUrlArg(url, arg, val){
@@ -224,7 +225,7 @@
         // 跳转到关注页面
         var chapterId = chapterList[curIndex].id;
         var url = subscribeUrl.replace('_cpid_', chapterId);
-        var l = layer.load(2);
+        var l = layer.load(1);
         $.post(changeUrlArg(url,'ajax', 1), {}, function(d){
             layer.close(l);
             $("#subscribe .qrcode img").attr('src', d.qrcode);
@@ -245,7 +246,7 @@
 
 
     function buy(buyway){
-        var l = layer.load(2);
+        var l = layer.load(1);
         $.post("/index.php?m=&c=Commic&a=buy&commic_id=1&spread_id=", {index:curIndex, buyway:buyway}, function(d){
             layer.close(l);
             $(".buyway-mask,.buyway").hide();

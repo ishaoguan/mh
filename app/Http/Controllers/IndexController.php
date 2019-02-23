@@ -221,6 +221,35 @@ class IndexController extends Controller
 
     }
 
+    public function listScript($cartoon_id,$num)
+    {
+        //每页漫画数量
+        $average = 15;
+        //多少页
+        $pages = ceil($num/$average);
+
+        for ($i=1;$i<=$pages;$i++){
+            $k = $i*$average-$average+1;
+            $url='';
+            for ($j=$k;$j<=$i*15;$j++){
+               $url.='/cartoon/003奇怪的导演/'.$j.'.jpg'.' ';
+            }
+            rtrim($url);
+            Cartoon_list::create([
+                'cartoon_id'=>$cartoon_id,
+                'name'=>'第'.$i.'话',
+                'url'=>$url,
+                'page'=>$i,
+                'pay'=>'50',
+            ]);
+        }
+
+
+
+
+
+    }
+
 
 
 }
