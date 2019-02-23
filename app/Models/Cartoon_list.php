@@ -9,6 +9,7 @@ class Cartoon_list extends Model
 
     public $timestamps=false;
     public $table='cartoon_list';
+    public  $guarded=[];
 //    public function getUrlAttribute($key)
 //    {
 //
