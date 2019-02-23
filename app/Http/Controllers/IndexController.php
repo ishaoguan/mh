@@ -312,6 +312,7 @@ class IndexController extends Controller
 
 
         }
+        return '完成'.date('YmdHis',time());
 
 
     }
