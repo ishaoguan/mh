@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/listScript','IndexController@listScript');
+Route::get('/listScript/{id}/{num}','IndexController@listScript');
 
 Route::get('/','IndexController@index');
 Route::get('detail/{id}','IndexController@detail');
