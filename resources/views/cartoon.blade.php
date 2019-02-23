@@ -39,7 +39,7 @@
 
     <p id="content" style=" font-size:18px">
         @foreach(explode(PHP_EOL,trim($cartoon->url))? : [trim($cartoon->url)] as $url)
-        <img src="{{$url}}" onerror="">
+        <img src="{{$url}}" onerror="javascript:NoImage(this)">
             @endforeach
       </p>
     <div class="flex">
@@ -169,6 +169,7 @@
 </div>
 @include('common.js')
 <script type="text/javascript">
+    function NoImage(imgObject){   this.style.display="none";  }
     //点击文本内容  隐藏上下属性栏
     var toolBarVisiable = true;
     $('.box_read p').click(function(){
