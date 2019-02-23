@@ -232,7 +232,7 @@ class IndexController extends Controller
             $k = $i*$average-$average+1;
             $url='';
             for ($j=$k;$j<=$i*15;$j++){
-               $url.='/cartoon/003奇怪的导演/'.$j.'.jpg'.' ';
+               $url.='/cartoon/003奇怪的导演/'.$j.'.jpg'.PHP_EOL;
             }
             rtrim($url);
             Cartoon_list::create([
