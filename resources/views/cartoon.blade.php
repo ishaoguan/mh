@@ -114,13 +114,13 @@
 
         <a href="/">
             <div>
-                <span class="mui-icon mui-icon-home"></span>
+                <span class="iconfont icon-shoucang"></span>
             </div>
             <div>首页</div>
         </a>
         <a href="/message">
             <div>
-                <span class="mui-icon mui-icon-info"></span>
+                <span class="iconfont icon-pinglun"></span>
             </div>
             <div>举报</div>
         </a>

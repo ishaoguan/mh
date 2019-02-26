@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/listScript/{id}/{num}','IndexController@listScript');
-Route::get('/down','IndexController@preg_image');
+Route::get('/listScript/{id}/{average}/{num}/{name}','IndexController@listScript');
+Route::get('/down2/{mulu}/{num}/{name}','IndexController@preg_image2');
+Route::get('/down1/{mulu}/{num}/{name}','IndexController@preg_image1');
 Route::get('/','IndexController@index');
 Route::get('detail/{id}','IndexController@detail');
 Route::get('cartoon/{id}/{list_id}','IndexController@cartoon');

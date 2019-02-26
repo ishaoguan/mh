@@ -12,6 +12,7 @@ use App\Models\Collect;
 use App\Models\Footprint;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class IndexController extends Controller
 {
@@ -222,10 +223,15 @@ class IndexController extends Controller
 
     }
 
-    public function listScript($cartoon_id,$num)
+    /**
+     * @param $cartoon_id 漫画ID
+     * @param $average    平均每页图片数量
+     * @param $num        图片总数
+     * @param $name       路径名称
+     */
+    public function listScript($cartoon_id,$average,$num,$name)
     {
-        //每页漫画数量
-        $average = 15;
+
         //多少页
         $pages = ceil($num/$average);
 
@@ -233,7 +239,7 @@ class IndexController extends Controller
             $k = $i*$average-$average+1;
             $url='';
             for ($j=$k;$j<=$i*15;$j++){
-               $url.='/cartoon/003奇怪的导演/'.$j.'.jpg'.PHP_EOL;
+               $url.='/cartoon/'.$name.'/'.$j.'.jpg'.PHP_EOL;
             }
             rtrim($url);
             Cartoon_list::create([
@@ -255,12 +261,14 @@ class IndexController extends Controller
             $save_dir='./';
         }
         if(trim($filename)==''){//保存文件名
-            $ext=strrchr($url,'.');
+            $ext=strrchr($url,'/');
+            $date = date('YmdHis',time()).'-';
+            $filename = str_replace('/',$date,$ext);
 
-            if($ext!='.gif'&&$ext!='.jpg'){
-                return array('file_name'=>'','save_path'=>'','error'=>3);
-            }
-            $filename=time().$ext;
+//            if($ext!='.gif'&&$ext!='.jpg'){
+//                return array('file_name'=>'','save_path'=>'','error'=>3);
+//            }
+//            $filename=time().'.jpg';
         }
         if(0!==strrpos($save_dir,'/')){
             $save_dir.='/';
@@ -270,40 +278,75 @@ class IndexController extends Controller
             return array('file_name'=>'','save_path'=>'','error'=>5);
         }
         //获取远程文件所采用的方法
-        if($type){
-            $ch=curl_init();
-            $timeout=5;
-            curl_setopt($ch,CURLOPT_URL,$url);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-            curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
-            $img=curl_exec($ch);
-            curl_close($ch);
-        }else{
+//        if($type){
+//            $ch=curl_init();
+//            $timeout=5;
+//            curl_setopt($ch,CURLOPT_URL,$url);
+//            curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+//            curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+//            $img=curl_exec($ch);
+//            curl_close($ch);
+//        }else{
                 ob_start();
                 readfile($url);
                 $img=ob_get_contents();
                 ob_end_clean();
 
-        }
+
+//        }
         //$size=strlen($img);
         //文件大小
-        $fp2=@fopen($save_dir.$filename,'a');
+        $fp2=fopen($save_dir.$filename,'a');
         fwrite($fp2,$img);
+        sleep(1);
+//        if (!file_exists($save_dir.$filename)) {
+//           dd(1);
+//        }else{
+//          Log::info($save_dir.$filename);
+//        }
         fclose($fp2);
         unset($img,$url);
-//        return array('file_name'=>$filename,'save_path'=>$save_dir.$filename,'error'=>0);
     }
-    public function preg_image()
+
+
+
+
+    public function preg_image1($mulu,$num,$name)
     {
-        $mulu = '67820';
-        $num = 32;
+
         set_time_limit(0);
         for ($i=1;$i<=$num;$i++){
 
-            for ($j=1;$j<=30;$j++){
+            for ($j=1;$j<=150;$j++){
                 $url =  'http://t.wzfcyy.cn/www.wzfcyy.cn/'.$mulu.'/'.$i.'/'.$j.'.jpg';
+
                 try{
-                    $this->download($url,'image/'.$mulu);
+                    $this->download($url,'image/'.$name);
+                }catch (\Exception $exception){
+                   continue;
+                }
+
+            }
+
+
+        }
+        return '完成'.date('Y-m-d H:i:s',time());
+
+
+    }
+
+
+    public function preg_image2($first,$num,$name)
+    {
+
+        set_time_limit(0);
+        for ($i=$first;$i<=$first+$num-1;$i++){
+
+            for ($j=1;$j<=100;$j++){
+//                $url =  'http://t.wzfcyy.cn/www.wzfcyy.cn/'.$mulu.'/'.$i.'/'.$j.'.jpg';
+                $url = 'http://manhua-1251281796.cos.ap-chengdu.myqcloud.com/bookimg/143/1533713519_book_143_chapter_'.$i.'_'.$j.'.jpg';
+                try{
+                    $this->download($url,'image/'.$name);
                 }catch (\Exception $exception){
                     continue;
                 }
@@ -312,7 +355,7 @@ class IndexController extends Controller
 
 
         }
-        return '完成'.date('YmdHis',time());
+        return '完成'.date('Y-m-d H:i:s',time());
 
 
     }
