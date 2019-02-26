@@ -251,6 +251,8 @@ class IndexController extends Controller
             ]);
         }
 
+        return 'success!';
+
 
     }
     function download($url='http://t.wzfcyy.cn/www.wzfcyy.cn/125131/4/1.jpg',$save_dir='image/',$filename='',$type=0){
