@@ -64,7 +64,7 @@ Route::post('delCollect','CartoonController@delCollect');
 
 
 //支付
-Route::get('payy','PayController@pay');
+Route::post('payy','PayController@pay');
 Route::get('pay/dk/notify_url','PayController@notify_url');
 Route::get('pay/dk/return_url','PayController@return_url');
 

@@ -5,6 +5,9 @@ require_once ('Pay/dkSdk/lib/epay_submit.class.php');
 require_once("Pay/dkSdk/epay.config.php");
 require_once("Pay/dkSdk/lib/epay_notify.class.php");
 use App\Http\Helper\Code;
+use App\Models\Order;
+use App\Models\Recharge_activity;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -13,24 +16,51 @@ class PayController extends Controller
     use Code;
     private $way='dk';
 
-    public function pay()
+    public function pay(Request $request)
     {
+
         $way = $this->way;
         $user_id=1;
-        $type = 'alipay';
+        $type = 'wxpay';
+        if($request->pay_type != 'wxpay')
+        {
+            $type = 'alipay';
+        }
+        $money='365';
+        $recharge_type = $request->recharge_type?:5;
+        if($recharge_type !=5){
+            if($recharge_type == 6){
+                $money='888';
+            }else{
+                if($recharge = Recharge_activity::find($recharge_type)){
+                    $money = $recharge->money;
+                }
+            }
+
+        }
+
+
+        $order_num = $this->randOrderNum($user_id);
 //构造要请求的参数数组，无需改动
         $parameter = array(
             "pid" => trim(config('epay.'.$way.'.partner')),
             "type" => $type,
             "notify_url"	=> config('epay.'.$way.'.notify_url'),
             "return_url"	=>  config('epay.'.$way.'.return_url'),
-            "out_trade_no"	=> $this->randOrderNum($user_id),
+            "out_trade_no"	=>$order_num,
             "name"	=> '充值',
-            "money"	=> '0.01',
+            "money"	=> $money,
             "sitename"	=> '易支付',
         );
         $alipay_config = config('epay.'.$way);
-
+        Order::create([
+            'order_num'=>$order_num,
+            'user_id'=>$user_id,
+            'recharge_id'=>$recharge_type,
+            'money'=>$money,
+            'recharge_gold'=>$money*100?:0,
+            'send_gold'=>isset($recharge->present_money)*100?:0
+        ]);
 //建立请求
 
         $alipaySubmit = new \AlipaySubmit($alipay_config);
@@ -81,6 +111,17 @@ class PayController extends Controller
         //注意：
         //付款完成后，支付宝系统发送该交易状态通知
 
+
+    }else{
+        $order = Order::where('order_num',$out_trade_no)->first();
+        $order->update([
+           'state'=>2
+        ]);
+        if($user = User::find($order->user_id)){
+            $user->update([
+                'gold'=>$order->money*100+$order->send_gold*100
+            ]);
+        }
 
     }
 
@@ -137,7 +178,7 @@ else {
                 echo "trade_status=".$_GET['trade_status'];
             }
 
-            return "验证成功<br />";
+            return "<script>alert('充值成功');window.location.href='/my'</script>";
 
             //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 
@@ -146,7 +187,7 @@ else {
         else {
             //验证失败
             //如要调试，请看alipay_notify.php页面的verifyReturn函数
-            return "验证失败";
+            return "<script>alert('充值失败');window.location.href='/my'</script>";
         }
     }
 }

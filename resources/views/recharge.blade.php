@@ -209,48 +209,61 @@
     <div style=" padding:15px; border-bottom:1px solid #eee; font-size:16px;">
         您剩余: <span style="color:darkorange;">0.00</span>书币
     </div>			<ul class="box_top_up_list" style=" padding:15px; ">
-        <li is_hot="0" onclick="setSelect(1)" id="item1">
-            <div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;">
-                <p><span>29.00</span>元</p>
-                <p style=" color:#888;">2900书币<br>29元</p>
-            </div>
-        </li><li is_hot="1" onclick="setSelect(2)" id="item2">
-            <div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;" class="selected">
-                <p><span>49.00</span>元</p>
-                <p style=" color:#888;">4900+3100书币<br>多送31元</p>
-                <img src="http://m8.hongjingkeji.com/Public/images/hot.png" style=" width:30px; height:30px; position:absolute; top:-5px; right:-5px;" class="hot">					</div>
-        </li><li is_hot="0" onclick="setSelect(3)" id="item3">
-            <div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;">
-                <p><span>79.00</span>元</p>
-                <p style=" color:#888;">7900+6100书币<br>多送61元</p>
-            </div>
-        </li><li is_hot="0" onclick="setSelect(4)" id="item4">
-            <div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;">
-                <p><span>199.00</span>元</p>
-                <p style=" color:#888;">（半年VIP）<br>半年全站免费看</p>
-            </div>
-        </li><li is_hot="0" onclick="setSelect(5)" id="item5">
-            <div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;">
-                <p><span>299.00</span>元</p>
+        {{--<li is_hot="0" onclick="setSelect(1)" id="item1">--}}
+            {{--<div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;">--}}
+                {{--<p><span>29.00</span>元</p>--}}
+                {{--<p style=" color:#888;">2900书币<br>29元</p>--}}
+            {{--</div>--}}
+        {{--</li><li is_hot="1" onclick="setSelect(2)" id="item2">--}}
+            {{--<div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;" class="selected">--}}
+                {{--<p><span>49.00</span>元</p>--}}
+                {{--<p style=" color:#888;">4900+3100书币<br>多送31元</p>--}}
+                {{--<img src="http://m8.hongjingkeji.com/Public/images/hot.png" style=" width:30px; height:30px; position:absolute; top:-5px; right:-5px;" class="hot">					</div>--}}
+        {{--</li><li is_hot="0" onclick="setSelect(3)" id="item3">--}}
+            {{--<div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;">--}}
+                {{--<p><span>79.00</span>元</p>--}}
+                {{--<p style=" color:#888;">7900+6100书币<br>多送61元</p>--}}
+            {{--</div>--}}
+        {{--</li>--}}
+        {{--<li is_hot="0" onclick="setSelect(4)" id="item4">--}}
+            {{--<div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;">--}}
+                {{--<p><span>199.00</span>元</p>--}}
+                {{--<p style=" color:#888;">（半年VIP）<br>半年全站免费看</p>--}}
+            {{--</div>--}}
+        {{--</li>--}}
+            @foreach($recharges as $k=> $recharge)
+            <li is_hot="0" onclick="setSelect({{$k+1}})" id="item{{$k+1}}">
+                <div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;">
+                    <p><span>{{$recharge->money}}.00</span>元</p>
+                    @if($recharge->present_money >0)
+                    <p style=" color:#888;">{{$recharge->money}}00+{{$recharge->present_money}}00书币<br>多送{{$recharge->present_money}}元</p>
+                        @else
+                        <p>
+                        <p style=" color:#888;">{{$recharge->money}}00书币</p>
+                        </p>
+                        @endif
+                </div>
+            </li>
+                @endforeach
+
+
+
+        <li is_hot="0" onclick="setSelect(5)" id="item5">
+            <div class="selected" style=" padding:10px; border:1px solid #ddd;overflow:visible !important;">
+                <p><span>365.00</span>元</p>
                 <p style=" color:#888;">（一年VIP）<br>365天全站免费看</p>
             </div>
-        </li><li is_hot="0" onclick="setSelect(7)" id="item7">
+        </li><li is_hot="0" onclick="setSelect(6)" id="item6">
             <div style=" padding:10px; border:1px solid #ddd;overflow:visible !important;">
-                <p><span>1.00</span>元</p>
-                <p style=" color:#888;">代发<br>代发</p>
+                <p><span>888.00</span>元</p>
+                <p style=" color:#888;">（永久VIP）<br>全站免费看</p>
             </div>
         </li>
-        <!--li>
-            <div>
-                <p><span>365</span>元</p>
-                <p><span>36500</span>书币+<b>一年会员</b></p>
-                <div class="left_posi"><span>年会员</span></div>
-            </div>
-        </li-->
+
     </ul>
 
     <div style=" padding:20px 15px;">
-        <a href="javascript:charge(window.chargeId);" style=" display:block; text-align:center; background:#fe8d98; color:#fff; padding:10px; border-radius:5px; font-size:18px; border:1px solid rgba(0,0,0,.2);">确认充值</a>
+        <a href="javascript:charge();" style=" display:block; text-align:center; background:#fe8d98; color:#fff; padding:10px; border-radius:5px; font-size:18px; border:1px solid rgba(0,0,0,.2);">确认充值</a>
     </div>
 
     <div class="box_top_up_btm">
@@ -263,17 +276,23 @@
     </div>
 </div>
 
+<form method="post" action="/payy">
+<input type="hidden" name="recharge_type" id="recharge_type" value="5">
+<input type="hidden" name="pay_type" id="pay_type" value="wxpay">
+<input type="hidden" name="_token" value="{{csrf_token()}}">
 <!--点击支付  弹出层-->
 <div class="top_up_mask">
     <div class="top_up_mask_content">
         <div class="top_up_mask_top">
             <span class="iconfont icon-cha" id="close"></span>
+            <b onclick="javascript:window.location.href='/recharge'" style="color: red">返回</b>
+            <br>
             <b>选择支付方式</b>
         </div>
         <div class="top_up_mask_num">
             <p class="top_up_mask_num_top" id="desc">在线充值</p>
             <p class="top_up_mask_num_btm">
-                <b style="margin-right: 8px;">¥</b><span id="price">5.00</span>
+
             </p>
         </div>
         <ul class="top_up_mask_list payway-list">
@@ -281,55 +300,43 @@
                 <span class="iconfont icon-weixin" style="color: #3FB842;font-size: 19px;"></span>
                 <span>微信支付</span>
                 <p>
-                    <b class="payway"></b>
+                    <b class="payway" style="margin-top: 15px"></b>
                 </p>
-            </li>																				<li data-payway="abcyzf">
+            </li>
+            <li data-payway="alipay">
                 <span class="iconfont icon-yue" style="color: #F7CF54;font-size: 17px;"></span>
-                <span>ABC支付</span>
+                <span>支付宝支付</span>
                 <p style="font-size: 12px;color: #999999;">
-                    <b class="payway"></b>
+                    <b class="payway" style="margin-top: 15px"></b>
                 </p>
-            </li>				</ul>
+            </li>
+        </ul>
         <div class="top_up_mask_btm">
-            <a href="javascript:pay();">确认支付</a>
+         <center>  <input type="submit" value="确认支付"></center>
+            {{--<a href="javascript:pay();">确认支付</a>--}}
         </div>
     </div>
 </div>
+</form>
 <div style="height: 49px;"></div>
 <!-- 底部nav -->
 @include('common.footer')
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-    var data = {};
-    window.chargeId = 0;
+    window.chargeId = 5;
+    var recharge_type = 5;
     function setSelect(chargeId){
         window.chargeId = chargeId;
+
+        recharge_type =chargeId;
+
+        $('#recharge_type').val(recharge_type);
         $(".box_top_up_list li>div").removeClass('selected');
         $("#item" + chargeId + '>div').addClass('selected');
+
     }
-    function charge(chargeId){
-        var l = layer.load(1);
-        data.charge_id = chargeId;
-        $.post("/index.php?m=&c=My&a=order", data, function(d){
-            layer.close(l);
-            if(d.status != 1){
-                layer.msg(d.info);
-                return false;
-            }
-
-            // 弹出支付方式选择
-            window.sn = d.sn;
-
-            // 只有一个支付方式则直接调用
-            if($(".payway-list li").length == 1){
-                pay();
-                return false;
-            }
-
-            $("#desc").text(d.desc);
-            $("#price").text(d.price);
+    function charge(){
             $(".top_up_mask").show();
-        });
     }
 
     $("#close").on('click', function(){
@@ -340,6 +347,7 @@
         $(".payway-list li").removeClass('payway-active');
         $(this).addClass('payway-active');
         window.payway = $(this).data('payway');
+        $('#pay_type').val($(this).data('payway'));
     });
 
     // 默认选中第一个支付方式

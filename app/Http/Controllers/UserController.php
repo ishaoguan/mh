@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Recharge_activity;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,12 @@ class UserController extends Controller
     public function recharge()
     {
 
-
+        $recharges = Recharge_activity::select([
+            'id','money','present_money'
+        ])->get();
         return view('recharge',[
-            'type'=>config('mh.type.my')
+            'type'=>config('mh.type.my'),
+            'recharges'=>$recharges
         ]);
     }
 
