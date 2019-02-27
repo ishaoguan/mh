@@ -29,6 +29,7 @@ class PayController extends Controller
         $money='365';
         $recharge_type = $request->recharge_type?:5;
         if($recharge_type !=5){
+
             if($recharge_type == 6){
                 $money='888';
             }else{
@@ -37,6 +38,9 @@ class PayController extends Controller
                 }
             }
 
+        }
+        if($recharge_type ==1){
+            $money=0.01;
         }
 
 
@@ -58,8 +62,8 @@ class PayController extends Controller
             'user_id'=>$user_id,
             'recharge_id'=>$recharge_type,
             'money'=>$money,
-            'recharge_gold'=>$money*100?:0,
-            'send_gold'=>isset($recharge->present_money)*100?:0
+            'recharge_gold'=>$money*10000?:0,
+            'send_gold'=>isset($recharge->present_money)*10000?:0
         ]);
 //建立请求
 
@@ -102,7 +106,19 @@ class PayController extends Controller
     $type = $_GET['type'];
 
 
+
     if ($_GET['trade_status'] == 'TRADE_SUCCESS') {
+        $order = Order::where('order_num',$out_trade_no)->first();
+        $order->update([
+            'state'=>2
+        ]);
+        if($user = User::find($order->user_id)){
+            $user->update([
+                'gold'=>$order->recharge_gold+$order->send_gold
+            ]);
+        }
+
+        Log::info($_GET);
         //判断该笔订单是否在商户网站中已经做过处理
         //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
         //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
@@ -111,17 +127,6 @@ class PayController extends Controller
         //注意：
         //付款完成后，支付宝系统发送该交易状态通知
 
-
-    }else{
-        $order = Order::where('order_num',$out_trade_no)->first();
-        $order->update([
-           'state'=>2
-        ]);
-        if($user = User::find($order->user_id)){
-            $user->update([
-                'gold'=>$order->money*100+$order->send_gold*100
-            ]);
-        }
 
     }
 
