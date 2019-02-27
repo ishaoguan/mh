@@ -150,7 +150,9 @@ class CartoonController extends Controller
     {
         $form = new Form(new Cartoon);
 
-        $form->number('cate_id', '分类ID');
+//        $form->number('cate_id', '分类ID');
+        $option1 = Cate::pluck('name','id')->toArray();
+        $form->select('cate_id','分类')->options($option1);
         $form->text('name', '名称');
         $form->text('introduce', '简介');
         $form->textarea('detail', '详情');
