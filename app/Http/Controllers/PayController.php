@@ -160,6 +160,7 @@ else {
 
             //支付宝交易号
 
+
             $trade_no = $_GET['trade_no'];
 
             //交易状态
