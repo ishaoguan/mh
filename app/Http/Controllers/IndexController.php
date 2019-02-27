@@ -40,7 +40,7 @@ class IndexController extends Controller
 //        $cartoons_two = Cartoon::where('recommend',2)->where('cate_id',2)->get()->toArray();
 //        $cartoons_three = Cartoon::where('recommend',2)->where('cate_id',3)->get()->toArray();
         $cartoons_f = Cartoon::where('recommend',3)->first();
-        $cartoons = Cartoon::get();
+        $cartoons = Cartoon::limit(8)->get();
 
         return view('index',[
             'type'=>config('mh.type.index'),
