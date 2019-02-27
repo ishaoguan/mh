@@ -238,7 +238,7 @@ class IndexController extends Controller
         for ($i=1;$i<=$pages;$i++){
             $k = $i*$average-$average+1;
             $url='';
-            for ($j=$k;$j<=$i*15;$j++){
+            for ($j=$k;$j<=$i*$average;$j++){
                $url.='/cartoon/'.$name.'/'.$j.'.jpg'.PHP_EOL;
             }
             rtrim($url);
