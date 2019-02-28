@@ -20,7 +20,7 @@ class PayController extends Controller
     {
 
         $way = $this->way;
-        $user_id=1;
+        $user_id= $this->checkLogin();
         $type = 'wxpay';
         if($request->pay_type != 'wxpay')
         {
