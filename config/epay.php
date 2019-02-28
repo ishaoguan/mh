@@ -5,7 +5,7 @@ return [
     'dk'=>[
         //合作者ID
         'partner'=>'2864',
-        'key'=>'gZaJlabu9XBl1zlIXeGIjIfcJQbU4ioZ',
+        'key'=>env('DK_KEY'),
         'sign_type'=>strtoupper('MD5'),
         'input_charset'=>strtolower('utf-8'),
         'transport'=>'http',
