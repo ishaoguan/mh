@@ -30,7 +30,7 @@
         <li class2="pay_active" onclick="location.href='/cartoon/{{$cartoon->cartoon_id}}/{{$cartoon->page}}'">
             <p class="txt">第{{$cartoon->page}}话 {{$cartoon->name}}</p>
             @if($cartoon->pay>0)
-            <span class="iconfont icon-zuanshi pay"></span>
+            <span class="iconfont icon-zuanshi pay">{{$cartoon->pay}}</span>
                 @endif
         </li>
     @endforeach
