@@ -114,7 +114,7 @@ class PayController extends Controller
         ]);
         if($user = User::find($order->user_id)){
             $user->update([
-                'gold'=>$order->recharge_gold+$order->send_gold
+                'gold'=>$user->gold+$order->recharge_gold+$order->send_gold
             ]);
         }
         Log::info($order);
