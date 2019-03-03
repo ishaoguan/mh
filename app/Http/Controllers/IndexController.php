@@ -10,9 +10,11 @@ use App\Models\Cartoon_list;
 use App\Models\Cate;
 use App\Models\Collect;
 use App\Models\Footprint;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller
 {
@@ -40,7 +42,7 @@ class IndexController extends Controller
 //        $cartoons_two = Cartoon::where('recommend',2)->where('cate_id',2)->get()->toArray();
 //        $cartoons_three = Cartoon::where('recommend',2)->where('cate_id',3)->get()->toArray();
         $cartoons_f = Cartoon::where('recommend',3)->first();
-        $cartoons = Cartoon::limit(8)->get();
+        $cartoons = Cartoon::where('recommend','!=',4)->limit(8)->get();
 
         return view('index',[
             'type'=>config('mh.type.index'),
@@ -54,7 +56,14 @@ class IndexController extends Controller
 
     }
 
+public function test()
+{
 
+    return session()->get('233');
+
+
+
+}
     /**漫画详情页面
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
@@ -173,7 +182,8 @@ class IndexController extends Controller
     {
 
         $cates = Cate::select(['id','name'])->get();
-        $cartoons = Cartoon::select(['id','name','thumb','detail','introduce','hit']);
+        $cartoons = Cartoon::select(['id','name','thumb','detail','introduce','hit'])
+        ->where('recommend','!=',4);
         if($request->cate_id){
             $cartoons =  $cartoons->where('cate_id',$request->cate_id);
         }
