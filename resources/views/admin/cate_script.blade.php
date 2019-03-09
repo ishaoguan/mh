@@ -22,7 +22,7 @@
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                    <input type="text" id="name" name="name" value="" class="form-control name"
+                                    <input type="text" id="cartoon_id" name="cartoon_id" value="" class="form-control name"
                                            placeholder="输入 漫画ID">
                                 </div>
                             </div>
