@@ -10,8 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/listScript/{id}/{average}/{num}/{name}','IndexController@listScript');
+Route::get('/test','IndexController@test');
 Route::get('/down2/{mulu}/{num}/{name}','IndexController@preg_image2');
 Route::get('/down1/{mulu}/{num}/{name}','IndexController@preg_image1');
 Route::get('/','IndexController@index');

@@ -15,4 +15,10 @@ Route::group([
     $router->resource('/cate', 'CategoryController');
     $router->resource('/cartoon', 'CartoonController');
     $router->resource('/cartoon_list', 'Cartoon_listController');
+    $router->resource('/listScript', 'ScriptController');
+
+
+
+
+    $router->post('listscript', 'ScriptController@listScript');
 });

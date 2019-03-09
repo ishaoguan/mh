@@ -239,9 +239,20 @@ public function test()
      * @param $num        图片总数
      * @param $name       路径名称
      */
-    public function listScript($cartoon_id,$average,$num,$name)
+    public function listScript(Request $request)
     {
-
+        $this->validate($request,[
+            'cartoon_id'=>'required',
+            'average'=>'required',
+            'num'=>'required',
+            'name'=>'required',
+            'free_page'=>'required'
+        ]);
+        $cartoon_id = $request->input('cartoon_id');
+        $average = $request->input('average');
+        $num = $request->input('num');
+        $name = $request->input('name');
+        $free_page = $request->input('free_page');
         //多少页
         $pages = ceil($num/$average);
 
@@ -252,16 +263,22 @@ public function test()
                $url.='/cartoon/'.$name.'/'.$j.'.jpg'.PHP_EOL;
             }
             rtrim($url);
+            $pay = 50;
+            if($i<=$free_page){
+                $pay=0;
+            }
             Cartoon_list::create([
                 'cartoon_id'=>$cartoon_id,
                 'name'=>'第'.$i.'话',
                 'url'=>$url,
                 'page'=>$i,
-                'pay'=>'50',
+                'pay'=>$pay,
             ]);
         }
 
-        return 'success!';
+        $count = Cartoon_list::where('cartoon_id',$cartoon_id)->count();
+        admin_toastr('操作成功，漫画目录成功写入' . $count . '章节!');
+        return redirect()->back();
 
 
     }
