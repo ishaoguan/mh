@@ -21,7 +21,7 @@
         .title{ font-weight:bold;}
     </style>
     <meta name="poweredby" content="dragondean">
-    <title>Title</title>
+    <title>73漫画</title>
 </head>
 <body style="background:transparent">
 
