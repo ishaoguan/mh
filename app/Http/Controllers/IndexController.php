@@ -29,29 +29,67 @@ class IndexController extends Controller
         $nowDayFirst = date('Y-m-d').' 00:00:00'; //当天开始时间
         $nowDayLast  = date('Y-m-d').' 23:59:59'; //当天结束时间
 
+        //访问地址IP记录
         if(!Browsing_history::where('ip',$ip)->whereBetween('created_at',[$nowDayFirst,$nowDayLast])->first()){
             Browsing_history::create([
                 'ip'=>$ip
             ]);
         }
 
+        $banners = Banner::select(
+            'image',
+            'cartoon_id'
+        )
+            ->get()
+            ->toArray();    //轮播图
 
-        $banners = Banner::select('image','cartoon_id')->get()->toArray();
+        $cartoons_first_thumb = Cartoon::where('recommend',3)
+            ->where('cate_id',1)
+            ->first();      //强烈推荐大图
 
-//        $cartoons_one = Cartoon::where('recommend',2)->where('cate_id',1)->get()->toArray();
-//        $cartoons_two = Cartoon::where('recommend',2)->where('cate_id',2)->get()->toArray();
-//        $cartoons_three = Cartoon::where('recommend',2)->where('cate_id',3)->get()->toArray();
-        $cartoons_f = Cartoon::where('recommend',3)->first();
-        $cartoons = Cartoon::where('recommend','!=',4)->limit(8)->get();
+        $cartoons_firsts = Cartoon::where('recommend','!=',4)
+            ->where('cate_id',1)
+            ->limit(8)
+            ->get();        //强烈推荐
+
+
+        $cartoons_second_thumb = Cartoon::where('recommend',3)
+            ->where('end',1)
+            ->first();      //经典完结推荐大图
+
+        $cartoons_seconds = Cartoon::where('recommend','!=',4)
+            ->where('end',1)
+            ->limit(8)
+            ->get();        //经典完结
+
+
+
+        $cartoons_third_thumb = Cartoon::where('recommend',3)
+            ->where('pay',1)
+            ->first();      //免费专区推荐大图
+
+        $cartoons_thirds = Cartoon::where('recommend','!=',4)
+            ->where('pay',1)
+            ->limit(8)
+            ->get();        //免费专区
+
+
+        $cartoons_fours = Cartoon::OrderBy('id','desc')
+            ->limit(8)
+            ->get();        //新书报道
+
 
         return view('index',[
             'type'=>config('mh.type.index'),
             'banners'=>$banners,
-            'cartoons'=>$cartoons,
-            'cartoons_f'=>$cartoons_f,
-//            'cartoons_one'=>$cartoons_one,
-//            'cartoons_two'=>$cartoons_two,
-//            'cartoons_three'=>$cartoons_three,
+            'cartoons_first_thumb'=>$cartoons_first_thumb,
+            'cartoons_firsts'=>$cartoons_firsts,
+            'cartoons_second_thumb'=>$cartoons_second_thumb,
+            'cartoons_seconds'=>$cartoons_seconds,
+            'cartoons_third_thumb'=>$cartoons_third_thumb,
+            'cartoons_thirds'=>$cartoons_thirds,
+            'cartoons_fours'=>$cartoons_fours
+
         ]);
 
     }
