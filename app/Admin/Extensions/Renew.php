@@ -33,10 +33,9 @@ class Renew
 
   
 $('.grid-check-row-$this->id').on('click', function () {
+  var cartoon_id = $this->id
 
-  var user_id = $this->id
-
- $("#user_id").val(user_id);
+ $("#cartoon_id").val(cartoon_id);
  
 document.getElementById("content").innerHTML="{$this->content}";
 
@@ -60,7 +59,7 @@ EOT;
         return "{$this->key}
 <form action=\"/admin/setfreestatus\" method=\"post\">
 <input type=\"hidden\"  name=\"_token\" value=".csrf_token().">
-<input type=\"hidden\" id=\"cartoon_id\"  name=\"user_id\">
+<input type=\"hidden\" id=\"cartoon_id\"  name=\"cartoon_id\" value='$this->cartoon->id'>
             <div class=\"modal fade\" id=\"delcfmOverhaul\">
                                 <div class=\"modal-dialog\" >
                                     <div class=\"modal-content message_align\">

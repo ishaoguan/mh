@@ -174,16 +174,23 @@ class CartoonController extends Controller
 
     public function setFreeStatus(Request $request)
     {
+
         $cartoon = Cartoon::find($request->cartoon_id);
 
         if($cartoon->pay == 1)
         {
+            $cartoon->update([
+                'pay' => 2
+            ]);
             Cartoon_list::where('cartoon_id',$cartoon->id)
                 ->where('id','>',6)
                 ->update([
                     'pay' => 48
                 ]);
         }else{
+            $cartoon->update([
+                'pay' => 1
+            ]);
             Cartoon_list::where('cartoon_id',$cartoon->id)
                 ->update([
                     'pay' => 0
