@@ -5,12 +5,14 @@ namespace App\Admin\Controllers;
 use App\Admin\Extensions\Renew;
 use App\Models\Cartoon;
 use App\Http\Controllers\Controller;
+use App\Models\Cartoon_list;
 use App\Models\Cate;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
 
 class CartoonController extends Controller
 {
@@ -110,6 +112,9 @@ class CartoonController extends Controller
             $key = $actions->getKey();
             // append一个操作
             $actions->prepend('<a target="_blank"  href="/admin/cartoon_list?cartoon_id='.$key.'  ">漫画列表</a>');
+            $actions->prepend(new Renew($key));
+
+
 
         });
         return $grid;
@@ -164,5 +169,30 @@ class CartoonController extends Controller
         $form->select('end','end')->options($option);
 
         return $form;
+    }
+
+
+    public function setFreeStatus(Request $request)
+    {
+        $cartoon = Cartoon::find($request->cartoon_id);
+
+        if($cartoon->pay == 1)
+        {
+            Cartoon_list::where('cartoon_id',$cartoon->id)
+                ->where('id','>',6)
+                ->update([
+                    'pay' => 48
+                ]);
+        }else{
+            Cartoon_list::where('cartoon_id',$cartoon->id)
+                ->update([
+                    'pay' => 0
+                ]);
+        }
+
+        admin_toastr('操作成功');
+
+        return redirect()->back();
+
     }
 }

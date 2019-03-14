@@ -21,4 +21,5 @@ Route::group([
 
 
     $router->post('listscript', 'ScriptController@listScript');
+    $router->post('setfreestatus', 'CartoonController@setFreeStatus');
 });

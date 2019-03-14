@@ -2,24 +2,32 @@
 
 namespace App\Admin\Extensions;
 
+use App\Models\Cartoon;
 use App\Models\User;
 use Encore\Admin\Admin;
 
 class Renew
 {
     protected $id;
-
+    public $cartoon;
+    public $key;
+    public $content;
     public function __construct($id)
     {
         $this->id = $id;
+        $this->cartoon = Cartoon::find($this->id);
+        $this->key = "<a class='btn btn-sm btn-default grid-check-row-$this->id'   style='width:80px;margin-left:-25px' data-id='.$this->id.'>设置免费</a>";
+        $this->content = "将要将名称为【".$this->cartoon->name."】的漫画设置为免费，是否确认";
+        if($this->cartoon->pay == 1){
+            $this->key = "<a class='btn btn-sm btn-default grid-check-row-$this->id'   style='width:80px;color:red;margin-left:-25px' data-id='.$this->id.'>设置收费</a>";
+            $this->content = "将要将名称为【".$this->cartoon->name."】的漫画设置为收费，是否确认";
+        }
     }
 
     protected function script()
     {
-        $user = User::find($this->id);
 
 
-        $content = "将要将ID【".$this->id."】  名称为【".$user->name."】的用户从黑名单移入到正常用户列表，是否确认";
 
         return <<<EOT
 
@@ -30,7 +38,7 @@ $('.grid-check-row-$this->id').on('click', function () {
 
  $("#user_id").val(user_id);
  
-document.getElementById("content").innerHTML="{$content}";
+document.getElementById("content").innerHTML="{$this->content}";
 
   $("#delcfmOverhaul").modal({
         backdrop : 'static',
@@ -49,10 +57,10 @@ EOT;
         Admin::script($this->script());
 
 
-        return "<a class='btn btn-sm btn-default grid-check-row-$this->id'   style='width:80px;margin-left:-25px' data-id='{$this->id}'>恢复</a>
-<form action=\"/admin/renew\" method=\"post\">
+        return "{$this->key}
+<form action=\"/admin/setfreestatus\" method=\"post\">
 <input type=\"hidden\"  name=\"_token\" value=".csrf_token().">
-<input type=\"hidden\" id=\"user_id\"  name=\"user_id\">
+<input type=\"hidden\" id=\"cartoon_id\"  name=\"user_id\">
             <div class=\"modal fade\" id=\"delcfmOverhaul\">
                                 <div class=\"modal-dialog\" >
                                     <div class=\"modal-content message_align\">
